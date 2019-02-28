@@ -1,0 +1,29 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true, //当无法推断一个变量是发出错误
+        "strictNullChecks": true,
+        "allowSyntheticDefaultImports": true,
+        "charset": "utf8",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "jsx": "react",
+        "lib": ["dom", "es2015", "es2016", "es2017"],
+        "module": "es2015",
+        "moduleResolution": "node",
+        "noEmitHelpers": true,
+        "removeComments": true,
+        "skipLibCheck": true,
+        "suppressExcessPropertyErrors": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "target": "es2015"
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
+  
