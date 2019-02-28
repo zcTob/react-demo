@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { observable, computed, action, inject } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { Foo } from './Foo'
 
