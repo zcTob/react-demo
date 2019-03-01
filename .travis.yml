@@ -1,0 +1,19 @@
+language: node_js
+branches:
+  only:
+    - master
+node_js:
+  - 11
+
+before_install:
+
+install:
+  - npm install
+
+before_script:
+
+script:
+  - npm run dev:server
+cache: npm
+
+deploy:
