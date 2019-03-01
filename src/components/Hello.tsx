@@ -52,6 +52,7 @@ export class Hello extends React.Component<HelloProps, HelloState> {
         return (
             <div onClick={this.handleClick.bind(this)}>
                 <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>
+                <h2>geklsjge</h2>
                 <Foo num={numOp}></Foo>
             </div>
         )
