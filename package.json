@@ -9,7 +9,8 @@
     "start": "npm-run-all -p \"dev:* -- {@}\" -- ",
     "server": "node server.js",
     "build": "webpack",
-    "sneaky:21": "sneaky deploy env:21"
+    "sneaky:21": "sneaky deploy env:21",
+    "deploy:21": "pm2 deploy production"
   },
   "author": "",
   "license": "ISC",

@@ -1,7 +1,8 @@
 {
     "apps" : [{
        "name" : "HTTP-API",
-       "script" : "server.js"
+       "script" : "server.js",
+       "exp_backoff_restart_delay": 100
     }],
     "deploy" : {
       "production" : {
