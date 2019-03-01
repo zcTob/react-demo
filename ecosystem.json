@@ -1,0 +1,16 @@
+{
+    "apps" : [{
+       "name" : "HTTP-API",
+       "script" : "http.js"
+    }],
+    "deploy" : {
+      "production" : {
+        "user" : "zy",
+        "host" : ["39.108.54.85"],
+        "ref"  : "origin/master",
+        "repo" : "git@github.com:zhangyuimitate/react-demo.git",
+        "path" : "/home/zy/code",
+        "post-deploy" : "npm install; npm run build; npm run server "
+       }
+    }
+ }

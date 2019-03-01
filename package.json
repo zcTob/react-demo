@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:client": "webpack-dev-server --open",
     "start": "npm-run-all -p \"dev:* -- {@}\" -- ",
-    "dev:server": "node server.js",
+    "server": "node server.js",
     "build": "webpack",
-    "deploy": "sneaky deploy env:21"
+    "sneaky:21": "sneaky deploy env:21"
   },
   "author": "",
   "license": "ISC",
