@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import styles from './App.sass';
-import Header from '../components/header';
-import TopicList from '../components/topic';
+import React, { Component } from 'react'
+import styles from './App.sass'
+import Header from '../components/header'
+import TopicList from '../components/topic'
 class App extends Component {
   render() {
     return (
@@ -11,8 +11,8 @@ class App extends Component {
           <TopicList title={1} desc={1} time={1} tag={1} />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

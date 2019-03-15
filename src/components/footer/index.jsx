@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 export default class Footer extends Component {
   render() {
-    return <div />;
+    return <div />
   }
 }
