@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
-import styles from './index.sass'
+import styles from './index.scss'
 
 export default class Topic extends Component {
   render() {
     return (
       <div className={styles.topic}>
-        <div className='title' />
-        <div className='desc' />
+        <h2 className='title'>
+          <a href='/'>Javascript</a>
+        </h2>
+        <div className='desc'>desc</div>
         <div className='toolbar'>
-          <span className='time' />
-          <span className='tag' />
-          <span
-            className='prettier-class'
-            id='prettier-id'
-            onClick={this.handleClick}
-          />
+          <span className='time'>年月日</span>
+          <span className='tag'>Javascript</span>
         </div>
       </div>
     )

@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
-import styles from './App.sass'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from '../components/header'
-import TopicList from '../components/topic'
+import Footer from '../components/footer'
+import TopicWrap from './topic-wrap'
+import TopicDetail from './topic-detail'
+import TopicEdit from './topic-edit'
+import styles from './App.scss'
 class App extends Component {
   render() {
     return (
-      <div>
-        <Header />
-        <div className={styles['topic-wrap']}>
-          <TopicList title={1} desc={1} time={1} tag={1} />
-        </div>
-      </div>
+      <BrowserRouter>
+        <React.Fragment>
+          <Header />
+          <div className={styles.wrap}>
+            <Switch>
+              <Route path='/' exact component={TopicWrap} />
+              <Route path='/detail' component={TopicDetail} />
+              <Route path='/edit' component={TopicEdit} />
+            </Switch>
+          </div>
+          <Footer />
+        </React.Fragment>
+      </BrowserRouter>
     )
   }
 }

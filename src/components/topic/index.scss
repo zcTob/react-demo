@@ -1,0 +1,31 @@
+@import '../../styles/mixin.scss';
+
+:local(.topic) {
+  width: 100%;
+  margin: 40px 0;
+  .title {
+    margin-bottom: 20px;
+    a {
+      font-size: 24px;
+      color: #474747;
+      transition: color 0.1s;
+      text-decoration: none;
+      &:hover {
+        color: #000000;
+        text-decoration: underline;
+      }
+    }
+  }
+  .desc {
+    @include textOverflow;
+    font-size: 16px;
+    color: #474747;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .toolbar {
+    color: #afb4b8;
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
