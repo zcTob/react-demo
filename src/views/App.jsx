@@ -5,6 +5,7 @@ import Footer from '../components/footer'
 import TopicWrap from './topic-wrap'
 import TopicDetail from './topic-detail'
 import TopicEdit from './topic-edit'
+import Login from './login'
 import styles from './App.scss'
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <Route path='/' exact component={TopicWrap} />
               <Route path='/detail' component={TopicDetail} />
               <Route path='/edit' component={TopicEdit} />
+              <Route path='/login' component={Login} />
             </Switch>
           </div>
           <Footer />
