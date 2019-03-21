@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
 import logo from '../../logo.svg'
-console.log(styles)
 
 export default class Header extends Component {
   render() {

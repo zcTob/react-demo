@@ -1,37 +1,30 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-const ReactMarkdown = require('react-markdown')
+import SimpleMDE from 'simplemde'
+import 'simplemde/dist/simplemde.min.css'
+import 'github-markdown-css/github-markdown.css'
 export default class TopicEdit extends Component {
-  state = {
-    markdownValue: ''
-  }
-
   constructor() {
     super()
-    this.mdEdit = this.mdEdit.bind(this)
+    this.markdown = React.createRef()
   }
 
-  mdEdit(e) {
-    this.setState({
-      markdownValue: e.target.value
+  componentDidMount() {
+    const dom = this.markdown.current
+    new SimpleMDE({
+      element: dom
     })
+    document
+      .getElementsByClassName('editor-preview-side')[0]
+      .classList.add('markdown-body')
   }
 
   render() {
-    const { markdownValue } = this.state
     return (
       <div className={styles['topic-edit']}>
-        <div className='edit-area'>
-          <textarea
-            placeholder='请输入内容'
-            value={markdownValue}
-            onChange={this.mdEdit}
-          />
-        </div>
-        <div className='preview'>
-          <div className={styles['md-style']}>
-            <ReactMarkdown source={markdownValue} />
-          </div>
+        <textarea ref={this.markdown} />
+        <div className='form-submit'>
+          <button className='submit-btn'>发表</button>
         </div>
       </div>
     )
