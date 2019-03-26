@@ -12,7 +12,7 @@
         "repo" : "git@github.com:zhangyuimitate/react-demo.git",
         "path" : "/home/zy/code",
         "pre-deploy-local" : "echo 'This is a local executed command'",
-        "post-deploy" : "npm install; npm run build; pm2 startOrRestart ecosystem.json"
+        "post-deploy" : "npm install -g yarn; yarn; pm2 startOrRestart ecosystem.json"
        }
     }
  }
