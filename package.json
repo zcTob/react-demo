@@ -25,7 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "pm2 deploy production setup"
+    "deploy:setup": "pm2 deploy ecosystem.json production setup",
+    "deploy": "pm2 deploy ecosystem.json production"
   },
   "eslintConfig": {
     "extends": "react-app"
