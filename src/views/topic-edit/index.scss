@@ -1,5 +1,16 @@
 :local(.topic-edit) {
   min-height: 800px;
+  .title {
+    input {
+      width: 300px;
+      height: 32px;
+      padding: 4px 11px;
+      font-size: 14px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
   .form-submit {
     .submit-btn {
       display: inline-block;

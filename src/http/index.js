@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: '/',
+  baseURL: 'http://localhost:3001/api',
   timeout: 1000
 })
 
@@ -26,10 +26,12 @@ instance.interceptors.response.use(
     return response
   },
   function(error) {
-    // console.log(error.response)
+    console.log(error.response)
     // console.log(error.request)
     // console.log(error.message)
-    alert(error.response.data.msg)
+    if (error.response.status === 401) {
+      window.location.href = '/login'
+    }
     // Do something with response error
     return Promise.reject(error)
   }

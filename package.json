@@ -16,9 +16,11 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8",
-    "simplemde": "^1.11.2"
+    "simplemde": "^1.11.2",
+    "source-map-explorer": "^1.8.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

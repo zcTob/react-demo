@@ -16,7 +16,7 @@ class App extends Component {
           <div className={styles.wrap}>
             <Switch>
               <Route path='/' exact component={TopicWrap} />
-              <Route path='/detail' component={TopicDetail} />
+              <Route path='/detail/:id' component={TopicDetail} />
               <Route path='/edit' component={TopicEdit} />
               <Route path='/login' component={Login} />
             </Switch>

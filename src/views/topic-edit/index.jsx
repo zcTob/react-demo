@@ -10,6 +10,7 @@ export default class TopicEdit extends Component {
   constructor() {
     super()
     this.markdown = React.createRef()
+    this.markdownTitle = React.createRef()
     this.submit = this.submit.bind(this)
   }
 
@@ -28,9 +29,11 @@ export default class TopicEdit extends Component {
   }
 
   submit() {
+    const html = this.markdownValue.markdown(this.markdownValue.value())
     axios
       .post('/topic', {
-        text: this.markdownValue.value()
+        title: this.markdownTitle.current.value,
+        text: html
       })
       .then((res) => {
         alert('添加成功')
@@ -43,6 +46,14 @@ export default class TopicEdit extends Component {
   render() {
     return (
       <div className={styles['topic-edit']}>
+        <div className='title'>
+          <input
+            type='text'
+            ref={this.markdownTitle}
+            placeholder='请输入标题'
+          />
+        </div>
+        <hr />
         <textarea ref={this.markdown} />
         <div className='form-submit'>
           <button className='submit-btn' onClick={this.submit}>
