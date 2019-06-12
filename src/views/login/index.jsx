@@ -9,7 +9,6 @@ export default class Login extends Component {
     this.password = React.createRef()
   }
   submit() {
-    console.log(this.username)
     const username = this.username.current.value
     const password = this.password.current.value
     if (username.length === 0 || password.length === 0) {
@@ -23,6 +22,7 @@ export default class Login extends Component {
       })
       .then((res) => {
         if (res.status === 200) {
+          this.props.history.push('/')
           alert('成功')
         }
       })

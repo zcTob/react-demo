@@ -26,9 +26,6 @@ instance.interceptors.response.use(
     return response
   },
   function(error) {
-    console.log(error.response)
-    // console.log(error.request)
-    // console.log(error.message)
     if (error.response.status === 401) {
       window.location.href = '/login'
     }

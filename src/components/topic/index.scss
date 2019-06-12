@@ -5,6 +5,12 @@
   margin: 40px 0;
   .title {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    .delete-topic {
+      font-size: 14px;
+      color: #474747;
+    }
     a {
       font-size: 24px;
       color: #474747;

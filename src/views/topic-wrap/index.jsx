@@ -17,16 +17,30 @@ class TopicWrap extends Component {
     })
   }
 
+  deleteTopic(index, id) {
+    axios.delete(`/topic/${id}`).then((res) => {
+      if (res.data.status === 200) {
+        const topicData = [...this.state.topicData]
+        topicData.splice(index, 1)
+        this.setState({
+          topicData: topicData
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <div className={styles['topic-wrap']}>
         {this.state.topicData.map((data, index) => (
           <TopicList
+            index={index}
             key={data._id}
             id={data._id}
             title={data.title}
             time={1}
             tag={1}
+            deleteTopic={(index, id) => this.deleteTopic.bind(this, index, id)}
           />
         ))}
       </div>

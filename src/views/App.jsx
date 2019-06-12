@@ -6,7 +6,7 @@ import TopicWrap from './topic-wrap'
 import TopicDetail from './topic-detail'
 import TopicEdit from './topic-edit'
 import Login from './login'
-import styles from './App.scss'
+import styles from './App.module.scss'
 import ErrorBoundary from './Error'
 
 class App extends Component {
