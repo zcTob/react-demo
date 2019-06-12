@@ -9,7 +9,7 @@
         "user" : "zy",
         "host" : ["39.108.54.85"],
         "ref"  : "origin/dev",
-        "repo" : "git@github.com:zhangyuimitate/react-demo.git",
+        "repo" : "git@github.com:zyrepo/react-demo.git",
         "path" : "/home/zy/blog",
         "pre-deploy-local" : "echo 'This is a local executed command'",
         "post-deploy" : "npm install -g yarn;npm install -g pm2; yarn; yarn run build; pm2 startOrRestart ecosystem.json"
