@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TopicList from '../../components/topic'
 import styles from './index.scss'
 import axios from '../../http'
+
 class TopicWrap extends Component {
   constructor() {
     super()
