@@ -8,7 +8,7 @@
       "production" : {
         "user" : "zy",
         "host" : ["39.108.54.85"],
-        "ref"  : "origin/dev",
+        "ref"  : "origin/master",
         "repo" : "git@github.com:zyrepo/react-demo.git",
         "path" : "/home/zy/blog",
         "pre-deploy-local" : "echo 'This is a local executed command'",
