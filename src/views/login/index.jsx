@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
 import axios from '../../http'
+import Header from '../../components/header'
 export default class Login extends Component {
   constructor() {
     super()
@@ -30,23 +31,26 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className={styles.login}>
-        <input
-          className='username'
-          ref={this.username}
-          type='text'
-          placeholder='username'
-        />
-        <input
-          className='password'
-          ref={this.password}
-          type='password'
-          placeholder='password'
-        />
-        <button className='submit' onClick={this.submit}>
-          登录
-        </button>
-      </div>
+      <React.Fragment>
+        <Header />
+        <div className={styles.login}>
+          <input
+            className='username'
+            ref={this.username}
+            type='text'
+            placeholder='username'
+          />
+          <input
+            className='password'
+            ref={this.password}
+            type='password'
+            placeholder='password'
+          />
+          <button className='submit' onClick={this.submit}>
+            登录
+          </button>
+        </div>
+      </React.Fragment>
     )
   }
 }
