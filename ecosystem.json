@@ -1,18 +1,22 @@
 {
-    "apps" : [{
-       "name" : "HTTP-API",
-       "script" : "server.js",
-       "exp_backoff_restart_delay": 100
-    }],
-    "deploy" : {
-      "production" : {
-        "user" : "zy",
-        "host" : ["39.108.54.85"],
-        "ref"  : "origin/master",
-        "repo" : "git@github.com:zyrepo/react-demo.git",
-        "path" : "/home/zy/blog",
-        "pre-deploy-local" : "echo 'This is a local executed command'",
-        "post-deploy" : "npm install -g yarn;npm install -g pm2; yarn; yarn run build; pm2 startOrRestart ecosystem.json"
-       }
-    }
- }
+   "apps": [
+      {
+         "name": "HTTP-API",
+         "script": "server.js",
+         "exp_backoff_restart_delay": 100
+      }
+   ],
+   "deploy": {
+      "production": {
+         "user": "zy",
+         "host": [
+            "39.108.54.85"
+         ],
+         "ref": "origin/master",
+         "repo": "git@github.com:zyrepo/react-demo.git",
+         "path": "/home/zy/blog",
+         "pre-deploy-local": "echo 'This is a local executed command'",
+         "post-deploy": "yarn; yarn run build; pm2 startOrRestart ecosystem.json"
+      }
+   }
+}
