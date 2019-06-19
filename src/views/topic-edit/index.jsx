@@ -1,46 +1,131 @@
 import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
-import 'github-markdown-css/github-markdown.css'
 import axios from '../../http'
-import { Button } from 'antd'
-const input = '# This is a header\n\nAnd this is a paragraph'
+import { Button, Upload, message, Icon } from 'antd'
+
+let imgUrl = ''
+
+const props = {
+  accept: 'image/*',
+  name: 'file',
+  action: '/api/upload/img',
+  // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  withCredentials: true,
+  headers: {
+    authorization: 'authorization-text'
+  },
+  showUploadList: false
+}
+
 export default class TopicEdit extends Component {
-  markdownValue = null
   constructor() {
     super()
+    this.state = {
+      markdownValue: '',
+      loading: false
+    }
+    this.titleRef = React.createRef()
+    this.bodyChange = this.bodyChange.bind(this)
+    this.submit = this.submit.bind(this)
+    this.onFileChange = this.onFileChange.bind(this)
   }
 
-  // submit() {
-  //   axios
-  //     .post('/topic', {
-  //       title: this.markdownTitle.current.value,
-  //       text: html
-  //     })
-  //     .then((res) => {
-  //       alert('添加成功')
-  //       setTimeout(() => {
-  //         this.props.history.push('/')
-  //       }, 3000)
-  //     })
-  // }
+  submit() {
+    this.setState({
+      loading: true
+    })
+    axios
+      .post('/topic', {
+        title: this.titleRef.current.value,
+        text: this.state.markdownValue
+      })
+      .then((res) => {
+        setTimeout(() => {
+          this.props.history.push('/')
+        }, 3000)
+      })
+      .catch(() => {
+        this.setState({
+          loading: false
+        })
+      })
+  }
+
+  componentDidMount() {
+    const params = this.props.match.params
+    if (params) {
+      axios.get(`/topic/${params.id}`).then((res) => {
+        const data = res.data.data[0]
+        this.setState({
+          markdownValue: data.text ? data.text : ''
+        })
+        this.titleRef.current.value = data.title
+      })
+    }
+  }
+
+  bodyChange(event) {
+    this.setState({
+      markdownValue: event.target.value
+    })
+  }
+
+  onFileChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList)
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} 上传成功`)
+      imgUrl = info.file.response.data.url
+      const markdownUrl = `![](${imgUrl})`
+      this.setState({
+        markdownValue: this.state.markdownValue + markdownUrl
+      })
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} 上传失败.`)
+    }
+  }
 
   render() {
     return (
       <div className={styles['topic-edit']}>
-        <header class='header'>
-          <input class='title' type='text' />
-          <Button type='primary'>Button</Button>
-          <span>保存</span>
-          <span />
-          <span />
+        <header className='header'>
+          <input
+            className='title'
+            type='text'
+            placeholder='请输入标题'
+            ref={this.titleRef}
+          />
+          <Upload
+            className='upload-img'
+            {...props}
+            onChange={this.onFileChange}>
+            <Button>
+              <Icon type='picture' /> 上传图片
+            </Button>
+          </Upload>
+          <Button
+            type='primary'
+            loading={this.state.loading}
+            onClick={this.submit}>
+            保存
+          </Button>
         </header>
         <div className='wrap'>
           <div className='edit-area'>
-            <textarea name='' id='' cols='30' rows='10' />
+            <textarea
+              value={this.state.markdownValue}
+              placeholder='请输入内容'
+              name=''
+              id=''
+              cols='30'
+              rows='10'
+              onChange={this.bodyChange}
+            />
           </div>
           <div className='edit-show'>
-            <ReactMarkdown source={input} />
+            <ReactMarkdown source={this.state.markdownValue} />
           </div>
         </div>
       </div>

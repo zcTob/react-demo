@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from '../../http'
-import 'github-markdown-css/github-markdown.css'
+import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
+import Header from '../../components/header'
 
 export default class TopicDetail extends Component {
   constructor() {
@@ -9,10 +10,9 @@ export default class TopicDetail extends Component {
     this.markdown = React.createRef()
     this.state = {
       title: '',
-      markdownValue: {
-        __html: ''
-      }
+      markdownValue: ''
     }
+    this.handerEdit = this.handerEdit.bind(this)
   }
   componentDidMount() {
     const params = this.props.match.params
@@ -20,21 +20,27 @@ export default class TopicDetail extends Component {
       const data = res.data.data[0]
       this.setState({
         title: data.title,
-        markdownValue: {
-          __html: data.text
-        }
+        markdownValue: data.text
       })
     })
+  }
+
+  handerEdit() {
+    // console.log(this.props)
+    const params = this.props.match.params
+    this.props.history.push(`/edit/${params.id}`)
   }
 
   render() {
     return (
       <div className={styles['topic-detail']}>
-        <h1 className='title'>{this.state.title}</h1>
-        <div
-          className='content markdown-body'
-          dangerouslySetInnerHTML={this.state.markdownValue}
-        />
+        <Header />
+        <div className='td-con markdown-body'>
+          <h1 className='title' onClick={this.handerEdit}>
+            {this.state.title}
+          </h1>
+          <ReactMarkdown source={this.state.markdownValue} />
+        </div>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'normalize.css'
+import 'github-markdown-css/github-markdown.css'
 import App from './views/App.jsx'
 import * as serviceWorker from './serviceWorker'
 
