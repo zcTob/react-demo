@@ -32,21 +32,42 @@ export default class TopicEdit extends Component {
     this.setState({
       loading: true
     })
-    axios
-      .post('/topic', {
-        title: this.titleRef.current.value,
-        text: this.state.markdownValue
-      })
-      .then((res) => {
-        setTimeout(() => {
-          this.props.history.push('/')
-        }, 3000)
-      })
-      .catch(() => {
-        this.setState({
-          loading: false
+    const params = this.props.match.params
+    if (params.id) {
+      axios
+        .put(`/topic`, {
+          id: params.id,
+          title: this.titleRef.current.value,
+          text: this.state.markdownValue
         })
-      })
+        .then((res) => {
+          message.success('修改成功，3s后跳到首页')
+          setTimeout(() => {
+            this.props.history.push('/')
+          }, 3000)
+        })
+        .catch(() => {
+          this.setState({
+            loading: false
+          })
+        })
+    } else {
+      axios
+        .post('/topic', {
+          title: this.titleRef.current.value,
+          text: this.state.markdownValue
+        })
+        .then((res) => {
+          setTimeout(() => {
+            this.props.history.push('/')
+          }, 3000)
+        })
+        .catch(() => {
+          this.setState({
+            loading: false
+          })
+        })
+    }
   }
 
   componentDidMount() {
