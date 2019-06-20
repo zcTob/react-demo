@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
   }
 } else {
   config = {
-    baseUrl: '/api'
+    baseUrl: 'http://localhost:3001/api'
   }
 }
 export default config

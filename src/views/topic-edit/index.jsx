@@ -9,12 +9,9 @@ let imgUrl = ''
 const props = {
   accept: 'image/*',
   name: 'file',
-  action: '/api/upload/img',
+  action: `${config.baseUrl}/upload/img`,
   // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   withCredentials: true,
-  headers: {
-    authorization: 'authorization-text'
-  },
   showUploadList: false
 }
 
@@ -54,7 +51,7 @@ export default class TopicEdit extends Component {
 
   componentDidMount() {
     const params = this.props.match.params
-    if (params) {
+    if (params.id) {
       axios.get(`/topic/${params.id}`).then((res) => {
         const data = res.data.data[0]
         this.setState({

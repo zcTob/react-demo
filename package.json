@@ -55,7 +55,6 @@
       "git add"
     ]
   },
-  "proxy": "http://localhost:3001",
   "devDependencies": {
     "husky": "^1.3.1"
   }

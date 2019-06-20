@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config'
+import { message } from 'antd'
 const instance = axios.create({
   baseURL: config.baseUrl,
   timeout: 1000,
@@ -29,8 +30,17 @@ instance.interceptors.response.use(
     return response
   },
   function(error) {
-    if (error.response.status === 401) {
-      window.location.href = '/login'
+    if (error.response) {
+      console.log(error.response.data)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+      if (error.response.status === 401) {
+        window.location.href = '/login'
+      }
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message)
+      message.error(`系统出错.`)
     }
     // Do something with response error
     return Promise.reject(error)
