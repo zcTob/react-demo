@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import axios from '../../http'
 import { Button, Upload, message, Icon } from 'antd'
-
+import config from '../../config'
 let imgUrl = ''
 
 const props = {
@@ -78,7 +78,7 @@ export default class TopicEdit extends Component {
     if (info.file.status === 'done') {
       message.success(`${info.file.name} 上传成功`)
       imgUrl = info.file.response.data.url
-      const markdownUrl = `![](${imgUrl})`
+      const markdownUrl = `![](${config.baseUrl}${imgUrl})`
       this.setState({
         markdownValue: this.state.markdownValue + markdownUrl
       })

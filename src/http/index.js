@@ -6,6 +6,8 @@ const instance = axios.create({
   withCredentials: true
 })
 
+instance.defaults.headers.post['Content-Type'] = 'application/json'
+
 // instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 // Add a request interceptor
