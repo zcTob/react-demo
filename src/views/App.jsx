@@ -5,10 +5,11 @@ import TopicWrap from './topic-wrap'
 import TopicDetail from './topic-detail'
 import TopicEdit from './topic-edit'
 import Login from './login'
+import Info from './info'
 import './App.scss'
 import ErrorBoundary from './Error'
 import Register from './register'
-
+import notFound from './notFound'
 class App extends Component {
   render() {
     return (
@@ -23,6 +24,8 @@ class App extends Component {
                 <Route path='/edit/:id' component={TopicEdit} />
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
+                <Route path='/info' component={Info} />
+                <Route component={notFound} />
               </Switch>
             </ErrorBoundary>
           </div>

@@ -1,0 +1,9 @@
+@import '../../styles/variable.scss';
+
+:local(.info) {
+  .list {
+    padding: 60px 0;
+    max-width: $maxWidth;
+    margin: auto;
+  }
+}

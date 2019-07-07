@@ -43,7 +43,7 @@ class TopicWrap extends Component {
                 key={data._id}
                 id={data._id}
                 title={data.title}
-                time={1}
+                time={data.time}
                 tag={1}
                 deleteTopic={(index, id) =>
                   this.deleteTopic.bind(this, index, id)
