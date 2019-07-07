@@ -7,6 +7,7 @@ import TopicEdit from './topic-edit'
 import Login from './login'
 import './App.scss'
 import ErrorBoundary from './Error'
+import Register from './register'
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
                 <Route path='/edit' exact component={TopicEdit} />
                 <Route path='/edit/:id' component={TopicEdit} />
                 <Route path='/login' component={Login} />
+                <Route path='/register' component={Register} />
               </Switch>
             </ErrorBoundary>
           </div>

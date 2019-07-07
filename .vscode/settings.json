@@ -1,4 +1,3 @@
 {
-  "formattingToggle.activateFor": ["formatOnSave"],
   "editor.formatOnSave": true
 }

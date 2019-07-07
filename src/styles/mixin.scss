@@ -1,7 +1,14 @@
+// 多行省略
+@mixin multiOverflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: 'vertical';
+}
+
+// 单行文本溢出
 @mixin textOverflow {
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: 'vertical';
+  white-space: nowrap;
 }

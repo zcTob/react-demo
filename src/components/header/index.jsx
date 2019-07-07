@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import styles from './index.scss'
-import logo from '../../logo.svg'
 import { getCookie } from '../../utils'
+import logo from '../../logo.svg'
 
 class Header extends Component {
   state = {
     name: '登录',
     loginIn: false
   }
-  constructor() {
-    super()
-    this.addClick = this.addClick.bind(this)
+  constructor(props) {
+    super(props)
+    this.handlerLogin = this.handlerLogin.bind(this)
+    this.handlerRegister = this.handlerRegister.bind(this)
   }
   componentDidMount() {
     const name = getCookie('user')
@@ -27,24 +28,35 @@ class Header extends Component {
       })
     }
   }
-  addClick() {
-    if (this.state.loginIn) {
-      this.props.history.push('/edit')
-    } else {
-      this.props.history.push('/login')
-    }
+
+  handlerLogin() {
+    this.props.history.push('/login')
   }
+
+  handlerRegister() {
+    this.props.history.push('/register')
+  }
+
   render() {
     return (
-      <div className={styles.header}>
-        <div className='icon'>
-          <img src={logo} alt='avatar' />
+      <header className={styles.header}>
+        <div className='wrap mcontainer'>
+          <a className='logo' href='/'>
+            <img className='cursor' src={logo} alt='logo' />
+          </a>
+          <ul className='tools'>
+            <li className='search'>
+              <input type='search' placeholder='搜索' maxLength={32} />
+            </li>
+            <li className='login cursor' onClick={this.handlerLogin}>
+              登录
+            </li>
+            <li className='register cursor' onClick={this.handlerRegister}>
+              注册
+            </li>
+          </ul>
         </div>
-        <div className='name' onClick={this.addClick}>
-          {this.state.name}
-        </div>
-        <div className='desc' />
-      </div>
+      </header>
     )
   }
 }

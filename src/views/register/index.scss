@@ -1,4 +1,6 @@
-:local(.login) {
+@import '../../styles/variable.scss';
+
+:local(.register) {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -15,6 +17,9 @@
     height: 48px;
     line-height: 48px;
     border-bottom: 1px solid #ebebeb;
+    &:focus {
+      border-bottom-color: $mainColor;
+    }
   }
   button {
     border: none;

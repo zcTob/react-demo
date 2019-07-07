@@ -16,8 +16,9 @@ const props = {
 }
 
 export default class TopicEdit extends Component {
-  constructor() {
-    super()
+  titleRef
+  constructor(props) {
+    super(props)
     this.state = {
       markdownValue: '',
       loading: false
@@ -74,7 +75,7 @@ export default class TopicEdit extends Component {
     const params = this.props.match.params
     if (params.id) {
       axios.get(`/topic/${params.id}`).then((res) => {
-        const data = res.data.data[0]
+        const data = res.data[0]
         this.setState({
           markdownValue: data.text ? data.text : ''
         })
@@ -137,8 +138,8 @@ export default class TopicEdit extends Component {
               placeholder='请输入内容'
               name=''
               id=''
-              cols='30'
-              rows='10'
+              cols={30}
+              rows={10}
               onChange={this.bodyChange}
             />
           </div>

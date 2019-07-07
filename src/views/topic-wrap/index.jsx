@@ -3,17 +3,16 @@ import TopicList from '../../components/topic'
 import styles from './index.scss'
 import axios from '../../http'
 import Header from '../../components/header'
+import Tags from '../../components/tags'
+import { BackTop } from 'antd'
 class TopicWrap extends Component {
-  constructor() {
-    super()
-    this.state = {
-      topicData: []
-    }
+  state = {
+    topicData: []
   }
   componentDidMount() {
     axios.get('/topic').then((res) => {
       this.setState({
-        topicData: res.data.data
+        topicData: res.data
       })
     })
   }
@@ -34,20 +33,24 @@ class TopicWrap extends Component {
     return (
       <div className={styles['topic-wrap']}>
         <Header />
-        <section className='topic-con'>
-          {this.state.topicData.map((data, index) => (
-            <TopicList
-              index={index}
-              key={data._id}
-              id={data._id}
-              title={data.title}
-              time={1}
-              tag={1}
-              deleteTopic={(index, id) =>
-                this.deleteTopic.bind(this, index, id)
-              }
-            />
-          ))}
+        <Tags />
+        <BackTop visibilityHeight={0} />
+        <section className={styles['topic-con']}>
+          <div className='mcontainer'>
+            {this.state.topicData.map((data, index) => (
+              <TopicList
+                index={index}
+                key={data._id}
+                id={data._id}
+                title={data.title}
+                time={1}
+                tag={1}
+                deleteTopic={(index, id) =>
+                  this.deleteTopic.bind(this, index, id)
+                }
+              />
+            ))}
+          </div>
         </section>
       </div>
     )

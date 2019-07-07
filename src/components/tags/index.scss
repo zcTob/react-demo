@@ -1,0 +1,29 @@
+@import '../../styles/variable.scss';
+
+:local(.tags) {
+  height: 46px;
+  font-size: 14px;
+  color: #71777c;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  .wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+  }
+  span {
+    padding: 0 12px;
+    cursor: pointer;
+    &.active,
+    &:hover {
+      color: $mainColor;
+    }
+  }
+  span:first-child {
+    padding: 0 18px 0 24px;
+  }
+  span:last-child {
+    padding: 0 24px 0 18px;
+  }
+}

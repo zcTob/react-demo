@@ -3,8 +3,8 @@ import styles from './index.scss'
 import axios from '../../http'
 import Header from '../../components/header'
 export default class Login extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.submit = this.submit.bind(this)
     this.username = React.createRef()
     this.password = React.createRef()
@@ -22,9 +22,7 @@ export default class Login extends Component {
         password
       })
       .then((res) => {
-        if (res.status === 200) {
-          this.props.history.push('/')
-        }
+        this.props.history.push('/')
       })
   }
 

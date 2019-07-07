@@ -1,33 +1,62 @@
 @import '../../styles/mixin.scss';
+@import '../../styles/variable.scss';
 
 :local(.topic) {
   width: 100%;
-  margin: 40px 0;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(178, 186, 194, 0.15);
+  &:last-child {
+    border-bottom: none;
+  }
+  .tips {
+    font-size: 12px;
+    color: #b2bac2;
+    span {
+      &:not(:last-child) {
+        &::after {
+          content: '·';
+          color: rgb(178, 186, 194);
+          margin: 0px 0.4em;
+        }
+      }
+    }
+  }
   .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #dddddd;
-    .delete-topic {
-      font-size: 14px;
-      color: #474747;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    font-size: 1.4rem;
+    color: #909090;
     .name {
-      flex: 1;
-    }
-    a {
-      font-size: 24px;
-      color: #474747;
-      transition: color 0.1s;
-      text-decoration: none;
+      color: #2e3135;
+      @include textOverflow;
       &:hover {
-        color: #000000;
-        text-decoration: underline;
+        color: $mainColor;
       }
+    }
+  }
+
+  .operation {
+    display: inline-flex;
+    color: #b2bac2;
+    font-size: 12px;
+    border-radius: 1px;
+    border: 1px solid #edeeef;
+    height: 24px;
+    .like,
+    .comment {
+      padding: 0 0.8rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: $mainColor;
+      }
+    }
+    .like {
+      border-right: 1px solid #edeeef;
+      margin-right: 1px;
     }
   }
 }

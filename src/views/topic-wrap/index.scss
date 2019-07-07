@@ -1,7 +1,9 @@
+@import '../../styles/variable.scss';
 :local(.topic-wrap) {
-  .topic-con {
-    max-width: 980px;
-    padding: 60px 40px;
-    margin: auto;
-  }
+  background-color: #f4f5f5;
+}
+
+:local(.topic-con) {
+  margin-top: 16px;
+  background-color: #ffffff;
 }

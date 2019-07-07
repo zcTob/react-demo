@@ -5,8 +5,9 @@ import styles from './index.scss'
 import Header from '../../components/header'
 
 export default class TopicDetail extends Component {
-  constructor() {
-    super()
+  markdown
+  constructor(props) {
+    super(props)
     this.markdown = React.createRef()
     this.state = {
       title: '',
@@ -17,7 +18,7 @@ export default class TopicDetail extends Component {
   componentDidMount() {
     const params = this.props.match.params
     axios.get(`/topic/${params.id}`).then((res) => {
-      const data = res.data.data[0]
+      const data = res.data[0]
       this.setState({
         title: data.title,
         markdownValue: data.text

@@ -1,5 +1,21 @@
 @import '../styles/markdown.scss';
+@import '../styles/variable.scss';
 
 * {
   box-sizing: border-box;
+}
+
+html,
+body {
+  background: #ffffff;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.mcontainer {
+  margin: auto;
+  width: 100%;
+  max-width: $maxWidth;
 }
