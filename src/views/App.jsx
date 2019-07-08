@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <React.Fragment>
+        <div className='app'>
           <div>
             <ErrorBoundary>
               <Switch>
@@ -30,7 +30,7 @@ class App extends Component {
             </ErrorBoundary>
           </div>
           <Footer />
-        </React.Fragment>
+        </div>
       </BrowserRouter>
     )
   }

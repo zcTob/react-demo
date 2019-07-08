@@ -1,33 +1,9 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
 import Header from '../../components/header'
-import { Table, Divider, Tag } from 'antd'
+import { Table, Divider, Tag, Popconfirm, message, Icon } from 'antd'
 import axios from '../../http'
 import { parseDate, getCookie } from '../../utils'
-
-const data = [
-  {
-    key: '1',
-    title: 'John Brown',
-    author: 'zy',
-    time: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
-  },
-  {
-    key: '2',
-    title: 'Jim Green',
-    author: 'zy',
-    time: 'London No. 1 Lake Park',
-    tags: ['loser']
-  },
-  {
-    key: '3',
-    title: 'Joe Black',
-    author: 'zy',
-    time: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }
-]
 
 export default class Info extends Component {
   columns = [
@@ -78,7 +54,15 @@ export default class Info extends Component {
         <span>
           <a href={`/edit/${record.key}`}>编辑</a>
           <Divider type='vertical' />
-          <a onClick={() => this.deleteList(record.key, index)}>删除</a>
+          <Popconfirm
+            title='确定删除吗?'
+            icon={<Icon type='question-circle-o' style={{ color: 'red' }} />}
+            onConfirm={() => this.deleteList(record.key, index)}
+            onCancel={this.cancel}
+            okText='Yes'
+            cancelText='No'>
+            <a href='#'>删除</a>
+          </Popconfirm>
         </span>
       )
     }
@@ -89,8 +73,6 @@ export default class Info extends Component {
   }
 
   deleteList = (key, index) => {
-    console.log(key)
-
     axios.delete(`/topic/${key}`).then((res) => {
       console.log(res)
       const data = this.state.data.concat()
@@ -98,6 +80,7 @@ export default class Info extends Component {
       this.setState({
         data
       })
+      message.success('删除成功')
     })
   }
 

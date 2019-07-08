@@ -30,6 +30,14 @@ export default class TopicEdit extends Component {
   }
 
   submit() {
+    if (this.titleRef.current.value.length === 0) {
+      message.warning('标题不能为空')
+      return
+    }
+    if (this.state.markdownValue.length === 0) {
+      message.warning('内容不能为空')
+      return
+    }
     this.setState({
       loading: true
     })
@@ -59,9 +67,7 @@ export default class TopicEdit extends Component {
           text: this.state.markdownValue
         })
         .then((res) => {
-          setTimeout(() => {
-            this.props.history.push('/')
-          }, 3000)
+          this.props.history.push('/')
         })
         .catch(() => {
           this.setState({

@@ -4,7 +4,7 @@ import styles from './index.scss'
 import axios from '../../http'
 import Header from '../../components/header'
 import Tags from '../../components/tags'
-import { BackTop } from 'antd'
+import { BackTop, message } from 'antd'
 class TopicWrap extends Component {
   state = {
     topicData: []
@@ -17,16 +17,21 @@ class TopicWrap extends Component {
     })
   }
 
-  deleteTopic(index, id) {
-    axios.delete(`/topic/${id}`).then((res) => {
-      if (res.data.status === 200) {
-        const topicData = [...this.state.topicData]
-        topicData.splice(index, 1)
+  topicLike = (id, like, index) => {
+    axios
+      .post('/like', {
+        id,
+        like
+      })
+      .then((res) => {
+        const topicData = this.state.topicData.concat()
+        topicData[index].like = ++topicData[index].like
+
         this.setState({
-          topicData: topicData
+          topicData
         })
-      }
-    })
+        message.success('点赞成功')
+      })
   }
 
   render() {
@@ -43,11 +48,12 @@ class TopicWrap extends Component {
                 key={data._id}
                 id={data._id}
                 title={data.title}
-                time={data.time}
+                createTime={data.createTime}
+                author={data.author}
                 tag={1}
-                deleteTopic={(index, id) =>
-                  this.deleteTopic.bind(this, index, id)
-                }
+                like={data.like}
+                comments={data.comments}
+                onLike={this.topicLike}
               />
             ))}
           </div>
