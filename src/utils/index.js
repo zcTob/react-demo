@@ -10,6 +10,10 @@ export const getCookie = (cname) => {
   return ''
 }
 
+export const loginIn = () => {
+  return getCookie('user') ? true : false
+}
+
 export const parseDate = (time) => {
   const date = new Date(time)
   const year = date.getFullYear()

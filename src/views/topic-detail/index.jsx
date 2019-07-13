@@ -3,7 +3,8 @@ import axios from '../../http'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import Header from '../../components/header'
-
+import Commnets from '../../components/comments'
+import { loginIn } from '../../utils'
 export default class TopicDetail extends Component {
   markdown
   constructor(props) {
@@ -11,7 +12,8 @@ export default class TopicDetail extends Component {
     this.markdown = React.createRef()
     this.state = {
       title: '',
-      markdownValue: ''
+      markdownValue: '',
+      comments: []
     }
     this.handerEdit = this.handerEdit.bind(this)
   }
@@ -21,13 +23,16 @@ export default class TopicDetail extends Component {
       const data = res.data[0]
       this.setState({
         title: data.title,
-        markdownValue: data.text
+        markdownValue: data.text,
+        comments: data.comments
       })
     })
   }
 
   handerEdit() {
-    // console.log(this.props)
+    if (!loginIn) {
+      return
+    }
     const params = this.props.match.params
     this.props.history.push(`/edit/${params.id}`)
   }
@@ -41,6 +46,9 @@ export default class TopicDetail extends Component {
             {this.state.title}
           </h1>
           <ReactMarkdown source={this.state.markdownValue} />
+          <div className='comments'>
+            <Commnets comments={this.state.comments} />
+          </div>
         </div>
       </div>
     )

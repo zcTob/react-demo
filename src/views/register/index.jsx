@@ -33,7 +33,6 @@ export default class Register extends Component {
         password
       })
       .then((res) => {
-        console.log('register', res)
         message.success(res.msg)
         message.success('3s后跳到登录页')
         setTimeout(() => {
@@ -41,8 +40,6 @@ export default class Register extends Component {
         }, 3000)
       })
       .catch((err) => {
-        console.log('err', err)
-        console.log(this)
         if (err.code === 10001) {
           this.username.current.value = ''
           this.password.current.value = ''

@@ -74,7 +74,6 @@ export default class Info extends Component {
 
   deleteList = (key, index) => {
     axios.delete(`/topic/${key}`).then((res) => {
-      console.log(res)
       const data = this.state.data.concat()
       data.splice(index, 1)
       this.setState({
@@ -94,7 +93,7 @@ export default class Info extends Component {
           key: v._id,
           title: v.title,
           author: user,
-          time: parseDate(v.time),
+          time: parseDate(v.createTime),
           tags: ['cool', 'teacher']
         })
       })
