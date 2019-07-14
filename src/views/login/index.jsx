@@ -1,32 +1,34 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-import axios from '../../http'
 import Header from '../../components/header'
-export default class Login extends Component {
+import { connect } from 'react-redux'
+import { actions } from '../../redux/rootReducer'
+import { Redirect } from 'react-router'
+class Login extends Component {
   constructor(props) {
     super(props)
     this.submit = this.submit.bind(this)
     this.username = React.createRef()
     this.password = React.createRef()
+    console.log(this)
   }
-  submit() {
+  async submit() {
     const username = this.username.current.value
     const password = this.password.current.value
     if (username.length === 0 || password.length === 0) {
       alert('请输入账号密码')
       return
     }
-    axios
-      .post('/login', {
-        username,
-        password
-      })
-      .then((res) => {
-        this.props.history.push('/')
-      })
+    this.props.onLogin({
+      username,
+      password
+    })
   }
 
   render() {
+    if (this.props.user.logined) {
+      return <Redirect to='/' />
+    }
     return (
       <React.Fragment>
         <Header />
@@ -51,3 +53,14 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapStatetoProps = (state) => {
+  return {
+    user: state.root
+  }
+}
+
+export default connect(
+  mapStatetoProps,
+  { onLogin: actions.handleLogin }
+)(Login)

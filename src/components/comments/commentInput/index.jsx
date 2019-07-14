@@ -50,6 +50,7 @@ export default class CommnetInput extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Any time props.email changes, update state.
     let comments = this.formatComments(nextProps.comments)
+    console.log(moment.locale('zh_CN'))
     this.setState({
       comments,
       id: nextProps.id
@@ -58,7 +59,9 @@ export default class CommnetInput extends React.Component {
 
   componentWillUpdate() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    moment.locale('zh_CN')
+  }
 
   formatComments(data) {
     return data.map((v) => {
@@ -67,15 +70,8 @@ export default class CommnetInput extends React.Component {
           'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
         content: <p>{v.value}</p>,
         datetime: (
-          <Tooltip
-            title={moment()
-              .subtract(v.time)
-              .format('YYYY-MM-DD HH:mm:ss')}>
-            <span>
-              {moment()
-                .subtract(v.time)
-                .fromNow()}
-            </span>
+          <Tooltip title={moment(v.time).format('YYYY-MM-DD HH:mm:ss')}>
+            <span>{moment(v.time).fromNow()}</span>
           </Tooltip>
         )
       }

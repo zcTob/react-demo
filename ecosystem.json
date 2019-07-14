@@ -10,9 +10,9 @@
     "production": {
       "user": "zy",
       "host": ["39.108.54.85"],
-      "ref": "origin/dev",
+      "ref": "origin/redux-demo",
       "repo": "git@github.com:zyrepo/react-demo.git",
-      "path": "/home/zy/blog1",
+      "path": "/home/zy/redux-demo",
       "pre-deploy-local": "echo 'This is a local executed command'",
       "post-deploy": "yarn; yarn run build; pm2 startOrRestart ecosystem.json"
     }
