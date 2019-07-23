@@ -1,6 +1,20 @@
+## install
+```
+yarn
+```
 ## start
 ```
 yarn start
+```
+
+## build
+```
+yarn run build
+```
+
+## deploy
+```
+yarn run deploy
 ```
 
 ## pages
