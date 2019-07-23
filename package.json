@@ -1,61 +1,63 @@
 {
-  "name": "react-demo",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "antd": "^3.20.0",
-    "axios": "^0.18.0",
-    "babel-plugin-import": "^1.12.0",
-    "customize-cra": "^0.2.13",
-    "eslint-plugin-prettier": "^3.0.1",
-    "express": "^4.16.4",
-    "github-markdown-css": "^3.0.1",
-    "lint-staged": "^8.1.5",
-    "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
-    "normalize.css": "^8.0.1",
-    "prettier": "^1.16.4",
-    "react": "^16.8.4",
-    "react-app-rewired": "^2.1.3",
-    "react-dom": "^16.8.4",
-    "react-markdown": "^4.0.8",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.8",
-    "simplemde": "^1.11.2",
-    "source-map-explorer": "^1.8.0",
-    "yarn": "^1.16.0"
-  },
-  "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "deploy:setup": "pm2 deploy ecosystem.json production setup",
-    "deploy": "pm2 deploy ecosystem.json production"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+    "name": "react-demo",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:zhangyuimitate/react-demo.git",
+    "author": "zhangyu <zhangyu@teambition.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "start": "webpack-dev-server --env.NODE_ENV=dev --color --config ./webpack/dev.js"
+    },
+    "dependencies": {
+        "@types/react": "^16.8.23",
+        "@types/react-dom": "^16.8.4",
+        "antd": "^3.20.5",
+        "axios": "^0.19.0",
+        "github-markdown-css": "^3.0.1",
+        "moment": "^2.24.0",
+        "normalize.css": "^8.0.1",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-markdown": "^4.1.0"
+    },
+    "browserslist": [
+        "last 2 version",
+        "not dead"
+    ],
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/preset-react": "^7.0.0",
+        "babel-loader": "^8.0.6",
+        "clean-webpack-plugin": "^3.0.0",
+        "css-loader": "^3.1.0",
+        "fork-ts-checker-webpack-plugin": "^1.4.3",
+        "html-webpack-plugin": "^3.2.0",
+        "husky": "^3.0.1",
+        "lint-staged": "^9.2.0",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-sass": "^4.12.0",
+        "prettier": "^1.18.2",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "typescript": "^3.5.3",
+        "url-loader": "^2.1.0",
+        "webpack": "^4.37.0",
+        "webpack-bundle-analyzer": "^3.3.2",
+        "webpack-cli": "^3.3.6",
+        "webpack-dev-server": "^3.7.2",
+        "webpack-merge": "^4.2.1"
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
     }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "devDependencies": {
-    "husky": "^1.3.1"
-  }
 }
