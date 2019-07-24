@@ -1,4 +1,12 @@
 {
-  "editor.formatOnSave": true,
-  "editor.foldingStrategy": "indentation"
+    "editor.formatOnSave": true,
+    "editor.foldingStrategy": "indentation",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "eslint.options": {
+        "configFile": "/Users/zhangyu/Desktop/gold/zy/react-demo/.eslintrc"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact"
+    ]
 }

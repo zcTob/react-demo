@@ -1,0 +1,28 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "impliedStrict": true,
+            "jsx": true
+        },
+        "useJSXTextNode": true,
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./",
+        "warnOnUnsupportedTypeScriptVersion": true
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "@typescript-eslint/rule-name": "error"
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
+    }
+}

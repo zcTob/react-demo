@@ -2,6 +2,8 @@ const merge = require('webpack-merge')
 const webpack = require('webpack')
 const common = require('./common.js')
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = (env) =>
     merge(common(env), {
         mode: 'development',
@@ -19,9 +21,15 @@ module.exports = (env) =>
                 index: '/index.html'
             }
         },
-        plugins: [new webpack.HotModuleReplacementPlugin()],
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new HtmlWebpackPlugin({
+                template: path.resolve(__dirname, '../public/index.html'),
+                filename: path.resolve(__dirname, '../build/index.html')
+            })
+        ],
         output: {
-            path: path.resolve(__dirname, 'build'),
+            path: path.resolve(__dirname, '../build'),
             // filename: 'js/dev.js',
             publicPath: '/'
         }
