@@ -27,7 +27,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
-                    test: /\.ts(x?)$/,
+                    test: /\.tsx?$/,
                     include: resolve('../src'),
                     enforce: 'pre',
                     use: [
@@ -72,10 +72,11 @@ module.exports = (env) => {
                             loader: 'css-loader',
                             options: {
                                 modules: {
+                                    mode: 'global',
                                     localIdentName: '[local]--[hash:base64:5]'
                                 },
                                 localsConvention: 'camelCaseOnly',
-                                importLoaders: 2,
+                                importLoaders: 2
                             }
                         },
                         {

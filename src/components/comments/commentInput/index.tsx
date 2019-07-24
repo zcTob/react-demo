@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     Comment,
     Avatar,
@@ -8,10 +8,10 @@ import {
     Input,
     message,
     Tooltip
-} from 'antd'
-import moment from 'moment'
-import axios from '../../../http'
-const { TextArea } = Input
+} from 'antd';
+import moment from 'moment';
+import axios from '../../../http';
+const { TextArea } = Input;
 
 const CommentList = ({ comments }) => (
     <List
@@ -22,7 +22,7 @@ const CommentList = ({ comments }) => (
         itemLayout='horizontal'
         renderItem={({ content: string }) => <Comment content />}
     />
-)
+);
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <div>
@@ -39,15 +39,26 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
             </Button>
         </Form.Item>
     </div>
-)
+);
 
-export default class CommentInput extends React.PureComponent {
+export default class CommentInput extends React.PureComponent<
+    {
+        comments: Array<object>;
+        id: string;
+    },
+    {
+        comments: Array<object>;
+        submitting: boolean;
+        value: string;
+        id: string | null;
+    }
+> {
     state = {
         comments: [],
         submitting: false,
         value: '',
         id: null
-    }
+    };
 
     componentWillUpdate() {}
 
@@ -71,25 +82,25 @@ export default class CommentInput extends React.PureComponent {
                         </span>
                     </Tooltip>
                 )
-            }
-        })
+            };
+        });
     }
 
     handleSubmit = () => {
         if (!this.state.value) {
-            message.warning('请输入评论内容')
-            return
+            message.warning('请输入评论内容');
+            return;
         }
 
         this.setState({
             submitting: true
-        })
+        });
 
-        const data = {
+        const data: any = {
             id: this.state.id,
             time: new Date(),
             value: this.state.value
-        }
+        };
 
         axios.post('/comments', data).then((res) => {
             this.setState({
@@ -115,18 +126,18 @@ export default class CommentInput extends React.PureComponent {
                     },
                     ...this.state.comments
                 ]
-            })
-        })
-    }
+            });
+        });
+    };
 
     handleChange = (e) => {
         this.setState({
             value: e.target.value
-        })
-    }
+        });
+    };
 
     render() {
-        const { comments, submitting, value } = this.state
+        const { comments, submitting, value } = this.state;
 
         return (
             <div>
@@ -148,6 +159,6 @@ export default class CommentInput extends React.PureComponent {
                     }
                 />
             </div>
-        )
+        );
     }
 }

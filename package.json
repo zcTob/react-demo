@@ -8,12 +8,15 @@
     "private": true,
     "scripts": {
         "start": "webpack-dev-server --env.NODE_ENV=dev --color --config ./webpack/dev.js",
-        "build": "webpack --env.NODE_ENV=prod --color --config ./webpack/prod.js"
+        "build": "webpack --env.NODE_ENV=prod --color --config ./webpack/prod.js",
+        "eslint": "eslint"
     },
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
         "@types/react": "^16.8.23",
         "@types/react-dom": "^16.8.4",
+        "@types/react-router": "^5.0.3",
+        "@types/react-router-dom": "^4.3.4",
         "antd": "^3.20.5",
         "axios": "^0.19.0",
         "core-js": "3",
@@ -46,6 +49,7 @@
         "eslint": "^5.0.0",
         "eslint-config-prettier": "^6.0.0",
         "eslint-loader": "^2.2.1",
+        "eslint-plugin-prettier": "^3.1.0",
         "fork-ts-checker-webpack-plugin": "^1.4.3",
         "html-webpack-plugin": "^3.2.0",
         "husky": "^3.0.1",
