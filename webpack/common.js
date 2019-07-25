@@ -27,7 +27,7 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
+                    test: /\.[tj]sx?$/,
                     include: resolve('../src'),
                     enforce: 'pre',
                     use: [
@@ -44,7 +44,7 @@ module.exports = (env) => {
                     ]
                 },
                 {
-                    test: /\.tsx?$/,
+                    test: /\.[tj]sx?$/,
                     include: resolve('../src'),
                     use: [
                         { loader: 'babel-loader' },
