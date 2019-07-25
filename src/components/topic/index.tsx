@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import styles from './index.scss';
-import { Icon } from 'antd';
-import { parseDate } from '../../utils';
-import comments from '../comments';
+import React, { Component } from 'react'
+import styles from './index.scss'
+import { Icon } from 'antd'
+import { parseDate } from '../../utils'
+import comments from '../comments'
 
 interface Props {
-    index: number;
-    key: number;
-    id: number;
-    title: string;
-    createTime: string;
-    author: string;
-    tag: number;
-    like: number;
-    comments: [];
-    onLike(id: number, like: number, index: number): void;
+    index: number
+    key: number
+    id: number
+    title: string
+    createTime: string
+    author: string
+    tag: number
+    like: number
+    comments: []
+    onLike(id: number, like: number, index: number): void
 }
 
 export default class Topic extends Component<Props> {
@@ -28,8 +28,8 @@ export default class Topic extends Component<Props> {
             comments,
             like,
             onLike
-        } = this.props;
-        const parseTime = parseDate(createTime);
+        } = this.props
+        const parseTime = parseDate(createTime)
         return (
             <div className={styles.topic}>
                 <div className='tips'>
@@ -55,6 +55,6 @@ export default class Topic extends Component<Props> {
                     </span>
                 </div>
             </div>
-        );
+        )
     }
 }

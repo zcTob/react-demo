@@ -1,21 +1,21 @@
-import React, { Component, RefObject } from 'react';
-import { RouteComponentProps } from 'react-router';
-import styles from './index.scss';
-import axios from '../../http';
-import Header from '../../components/header';
+import React, { Component, RefObject } from 'react'
+import { RouteComponentProps } from 'react-router'
+import styles from './index.scss'
+import axios from '../../http'
+import Header from '../../components/header'
 
-interface Props extends RouteComponentProps {}
+type Props = RouteComponentProps
 
 export default class Login extends Component<Props> {
-    username: RefObject<HTMLInputElement> = React.createRef();
-    password: RefObject<HTMLInputElement> = React.createRef();
+    username: RefObject<HTMLInputElement> = React.createRef()
+    password: RefObject<HTMLInputElement> = React.createRef()
 
     submit = () => {
-        const username = this.username.current.value;
-        const password = this.password.current.value;
+        const username = this.username.current.value
+        const password = this.password.current.value
         if (username.length === 0 || password.length === 0) {
-            alert('请输入账号密码');
-            return;
+            alert('请输入账号密码')
+            return
         }
         axios
             .post('/login', {
@@ -23,9 +23,9 @@ export default class Login extends Component<Props> {
                 password
             })
             .then((res) => {
-                this.props.history.push('/');
-            });
-    };
+                this.props.history.push('/')
+            })
+    }
 
     render() {
         return (
@@ -49,6 +49,6 @@ export default class Login extends Component<Props> {
                     </button>
                 </div>
             </React.Fragment>
-        );
+        )
     }
 }

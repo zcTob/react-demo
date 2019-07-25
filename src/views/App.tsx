@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Footer from '../components/footer';
-import TopicWrap from './topic-wrap';
-import TopicDetail from './topic-detail';
-import TopicEdit from './topic-edit';
-import Login from './login';
-import Info from './info';
-import './App.scss';
-import ErrorBoundary from './Error';
-import Register from './register';
-import notFound from './notFound';
+import React, { Component } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Footer from '../components/footer'
+import TopicWrap from './topic-wrap'
+import TopicDetail from './topic-detail'
+import TopicEdit from './topic-edit'
+import Login from './login'
+import Info from './info'
+import './App.scss'
+import ErrorBoundary from './Error'
+import Register from './register'
+import notFound from './notFound'
 class App extends Component {
     render() {
         return (
@@ -30,8 +30,8 @@ class App extends Component {
                     <Footer />
                 </div>
             </BrowserRouter>
-        );
+        )
     }
 }
 
-export default App;
+export default App

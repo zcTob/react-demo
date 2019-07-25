@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import TopicList from '../../components/topic';
-import styles from './index.scss';
-import axios from '../../http';
-import Header from '../../components/header';
-import Tags from '../../components/tags';
-import { BackTop, message } from 'antd';
+import React, { Component } from 'react'
+import TopicList from '../../components/topic'
+import styles from './index.scss'
+import axios from '../../http'
+import Header from '../../components/header'
+import Tags from '../../components/tags'
+import { BackTop, message } from 'antd'
 
 interface State {
-    topicData: any[];
+    topicData: any[]
 }
 
 class TopicWrap extends Component<{}, State> {
     state = {
         topicData: []
-    };
+    }
     componentDidMount() {
         axios.get('/topic').then((res) => {
             this.setState({
                 topicData: res.data
-            });
-        });
+            })
+        })
     }
 
     topicLike = (id, like, index) => {
@@ -29,15 +29,15 @@ class TopicWrap extends Component<{}, State> {
                 like
             })
             .then((res) => {
-                const topicData = this.state.topicData.concat();
-                topicData[index].like = ++topicData[index].like;
+                const topicData = this.state.topicData.concat()
+                topicData[index].like = ++topicData[index].like
 
                 this.setState({
                     topicData
-                });
-                message.success('点赞成功');
-            });
-    };
+                })
+                message.success('点赞成功')
+            })
+    }
 
     render() {
         return (
@@ -64,8 +64,8 @@ class TopicWrap extends Component<{}, State> {
                     </div>
                 </section>
             </div>
-        );
+        )
     }
 }
 
-export default TopicWrap;
+export default TopicWrap

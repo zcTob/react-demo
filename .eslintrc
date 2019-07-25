@@ -14,8 +14,14 @@
     },
     "plugins": ["@typescript-eslint", "prettier"],
     "rules": {
-        "prettier/prettier": "error",
-        "@typescript-eslint/restrict-plus-operands": "error",
+        "prettier/prettier": [
+            "error",
+            {},
+            {
+                "usePrettierrc": true
+            }
+        ],
+        "@typescript-eslint/restrict-plus-operands": 0,
         "@typescript-eslint/no-unused-vars": 0,
         "@typescript-eslint/explicit-member-accessibility": 0,
         "@typescript-eslint/explicit-function-return-type": 0,

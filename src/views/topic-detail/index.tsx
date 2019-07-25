@@ -1,50 +1,51 @@
-import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router';
-import axios from '../../http';
-import ReactMarkdown from 'react-markdown';
-import styles from './index.scss';
-import Header from '../../components/header';
-import Commnets from '../../components/comments';
-import { loginIn } from '../../utils';
+import React, { Component } from 'react'
+import { RouteComponentProps } from 'react-router'
+import axios from '../../http'
+import ReactMarkdown from 'react-markdown'
+import styles from './index.scss'
+import Header from '../../components/header'
+import Commnets from '../../components/comments'
+import { loginIn } from '../../utils'
+import { type } from 'os'
 
-interface Props extends RouteComponentProps<{ id: string }> {}
+type Props = RouteComponentProps<{ id: string }>
 
 interface State {
-    title: string;
-    markdownValue: string;
-    comments: object[];
+    title: string
+    markdownValue: string
+    comments: object[]
 }
 
 export default class TopicDetail extends Component<Props, State> {
-    markdown;
+    markdown
     constructor(props) {
-        super(props);
-        this.markdown = React.createRef();
+        super(props)
+        this.markdown = React.createRef()
         this.state = {
             title: '',
             markdownValue: '',
             comments: []
-        };
-        this.handerEdit = this.handerEdit.bind(this);
+        }
+        this.handerEdit = this.handerEdit.bind(this)
     }
     componentDidMount() {
-        const params = this.props.match.params;
+        const params = this.props.match.params
         axios.get(`/topic/${params.id}`).then((res) => {
-            const data = res.data[0];
+            const data = res.data[0]
             this.setState({
                 title: data.title,
                 markdownValue: data.text,
                 comments: data.comments
-            });
-        });
+            })
+        })
     }
 
     handerEdit() {
         if (!loginIn) {
-            return;
+            return
         }
-        const params = this.props.match.params;
-        this.props.history.push(`/edit/${params.id}`);
+        const params = this.props.match.params
+        this.props.history.push(`/edit/${params.id}`)
     }
 
     render() {
@@ -61,6 +62,6 @@ export default class TopicDetail extends Component<Props, State> {
                     </div>
                 </div>
             </div>
-        );
+        )
     }
 }
