@@ -1,2 +1,2 @@
-import React from 'react'
-console.log(123)
+import React from 'react';
+console.log(123);
