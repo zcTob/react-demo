@@ -1,7 +1,7 @@
-import { Result, Button } from 'antd';
+import { Result, Button } from 'antd'
 
-import React, { Component } from 'react';
-import Header from '../components/header';
+import React, { Component } from 'react'
+import Header from '../components/header'
 const StatusMap = {
     '404': {
         title: '404',
@@ -12,20 +12,20 @@ const StatusMap = {
             </Button>
         )
     }
-};
+}
 
 export default class NotFound extends Component {
     state = {
         status: '404'
-    };
+    }
     render() {
-        const { status } = this.state;
-        const resultProps = StatusMap[status];
+        const { status } = this.state
+        const resultProps = StatusMap[status]
         return (
             <div>
                 <Header />
                 <Result status={status} {...resultProps} />
             </div>
-        );
+        )
     }
 }

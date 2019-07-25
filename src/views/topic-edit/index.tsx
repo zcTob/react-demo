@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router';
-import ReactMarkdown from 'react-markdown';
-import styles from './index.scss';
-import axios from '../../http';
-import { Button, Upload, message, Icon } from 'antd';
-import config from '../../config';
-let imgUrl = '';
+import React, { Component } from 'react'
+import { RouteComponentProps } from 'react-router'
+import ReactMarkdown from 'react-markdown'
+import styles from './index.scss'
+import axios from '../../http'
+import { Button, Upload, message, Icon } from 'antd'
+import config from '../../config'
+let imgUrl = ''
 
-console.log(styles);
+console.log(styles)
 
 const props = {
     accept: 'image/*',
@@ -16,42 +16,42 @@ const props = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     withCredentials: true,
     showUploadList: false
-};
-
-interface Props extends RouteComponentProps<{ id: string }> {}
-
-interface State {
-    markdownValue: string;
-    loading: boolean;
 }
 
+interface State {
+    markdownValue: string
+    loading: boolean
+}
+
+type Props = RouteComponentProps<{ id: string }>
+
 export default class TopicEdit extends Component<Props, State> {
-    titleRef;
+    titleRef
     constructor(props: Props) {
-        super(props);
+        super(props)
         this.state = {
             markdownValue: '',
             loading: false
-        };
-        this.titleRef = React.createRef();
-        this.bodyChange = this.bodyChange.bind(this);
-        this.submit = this.submit.bind(this);
-        this.onFileChange = this.onFileChange.bind(this);
+        }
+        this.titleRef = React.createRef()
+        this.bodyChange = this.bodyChange.bind(this)
+        this.submit = this.submit.bind(this)
+        this.onFileChange = this.onFileChange.bind(this)
     }
 
     submit() {
         if (this.titleRef.current.value.length === 0) {
-            message.warning('标题不能为空');
-            return;
+            message.warning('标题不能为空')
+            return
         }
         if (this.state.markdownValue.length === 0) {
-            message.warning('内容不能为空');
-            return;
+            message.warning('内容不能为空')
+            return
         }
         this.setState({
             loading: true
-        });
-        const params = this.props.match.params;
+        })
+        const params = this.props.match.params
         if (params.id) {
             axios
                 .put(`/topic`, {
@@ -60,16 +60,16 @@ export default class TopicEdit extends Component<Props, State> {
                     text: this.state.markdownValue
                 })
                 .then((res) => {
-                    message.success('修改成功，3s后跳到首页');
+                    message.success('修改成功，3s后跳到首页')
                     setTimeout(() => {
-                        this.props.history.push('/');
-                    }, 3000);
+                        this.props.history.push('/')
+                    }, 3000)
                 })
                 .catch(() => {
                     this.setState({
                         loading: false
-                    });
-                });
+                    })
+                })
         } else {
             axios
                 .post('/topic', {
@@ -77,48 +77,48 @@ export default class TopicEdit extends Component<Props, State> {
                     text: this.state.markdownValue
                 })
                 .then((res) => {
-                    this.props.history.push('/');
+                    this.props.history.push('/')
                 })
                 .catch(() => {
                     this.setState({
                         loading: false
-                    });
-                });
+                    })
+                })
         }
     }
 
     componentDidMount() {
-        const params = this.props.match.params;
+        const params = this.props.match.params
         if (params.id) {
             axios.get(`/topic/${params.id}`).then((res) => {
-                const data = res.data[0];
+                const data = res.data[0]
                 this.setState({
                     markdownValue: data.text ? data.text : ''
-                });
-                this.titleRef.current.value = data.title;
-            });
+                })
+                this.titleRef.current.value = data.title
+            })
         }
     }
 
     bodyChange(event) {
         this.setState({
             markdownValue: event.target.value
-        });
+        })
     }
 
     onFileChange(info) {
         if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
+            console.log(info.file, info.fileList)
         }
         if (info.file.status === 'done') {
-            message.success(`${info.file.name} 上传成功`);
-            imgUrl = info.file.response.data.url;
-            const markdownUrl = `![](${config.baseUrl}${imgUrl})`;
+            message.success(`${info.file.name} 上传成功`)
+            imgUrl = info.file.response.data.url
+            const markdownUrl = `![](${config.baseUrl}${imgUrl})`
             this.setState({
                 markdownValue: this.state.markdownValue + markdownUrl
-            });
+            })
         } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} 上传失败.`);
+            message.error(`${info.file.name} 上传失败.`)
         }
     }
 
@@ -164,6 +164,6 @@ export default class TopicEdit extends Component<Props, State> {
                     </div>
                 </div>
             </div>
-        );
+        )
     }
 }

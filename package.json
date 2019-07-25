@@ -9,7 +9,7 @@
     "scripts": {
         "start": "webpack-dev-server --env.NODE_ENV=dev --color --config ./webpack/dev.js",
         "build": "webpack --env.NODE_ENV=prod --color --config ./webpack/prod.js",
-        "eslint": "eslint"
+        "eslint": "eslint --ext .ts,.tsx src/ --fix --color"
     },
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
@@ -72,8 +72,7 @@
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-            "prettier --write",
-            "git add"
+            "npm run eslint"
         ]
     },
     "husky": {

@@ -1,64 +1,66 @@
-import React, { Component, RefObject } from 'react';
-import { RouteComponentProps } from 'react-router';
-import styles from './index.scss';
-import axios from '../../http';
+import React, { Component, RefObject } from 'react'
+import { RouteComponentProps } from 'react-router'
+import styles from './index.scss'
+import axios from '../../http'
 
-import Header from '../../components/header';
-import { message, Button } from 'antd';
+import Header from '../../components/header'
+import { message, Button } from 'antd'
 
-interface Props extends RouteComponentProps<{ id: any }> {}
+type Props = RouteComponentProps<{ id: string }>
 
-interface State {}
+interface State {
+    loading: boolean
+}
 
 export default class Register extends Component<Props, State> {
     state = {
         loading: false
-    };
-    username: RefObject<HTMLInputElement> = React.createRef();
-    password: RefObject<HTMLInputElement> = React.createRef();
-    repassword: RefObject<HTMLInputElement> = React.createRef();
+    }
+    username: RefObject<HTMLInputElement> = React.createRef()
+    password: RefObject<HTMLInputElement> = React.createRef()
+    repassword: RefObject<HTMLInputElement> = React.createRef()
 
     submit = () => {
-        const username = this.username.current.value;
-        const password = this.password.current.value;
-        const repassword = this.repassword.current.value;
+        const username = this.username.current.value
+        const password = this.password.current.value
+        const repassword = this.repassword.current.value
         if (username.length === 0 || password.length === 0) {
-            message.warning('请输入账号密码');
-            return;
+            message.warning('请输入账号密码')
+            return
         }
         if (password !== repassword) {
-            message.error('两次输入密码不一致');
-            return;
+            message.error('两次输入密码不一致')
+            return
         }
         this.setState({
             loading: true
-        });
+        })
         axios
             .post('/register', {
                 username,
                 password
             })
             .then((data: any) => {
-                message.success(data.msg);
-                message.success('3s后跳到登录页');
+                message.success(data.msg)
+                message.success('3s后跳到登录页')
                 setTimeout(() => {
-                    this.props.history.push('/login');
-                }, 3000);
+                    this.props.history.push('/login')
+                }, 3000)
             })
             .catch((err) => {
                 if (err.code === 10001) {
-                    this.username.current.value = '';
-                    this.password.current.value = '';
-                    this.repassword.current.value = '';
-                    this.username.current.focus();
+                    this.username.current.value = ''
+                    this.password.current.value = ''
+                    this.repassword.current.value = ''
+                    this.username.current.focus()
                 }
                 setTimeout(() => {
                     this.setState({
                         loading: false
-                    });
-                }, 0);
-            });
-    };
+                    })
+                }, 0)
+            })
+    }
 
     render() {
         return (
@@ -92,6 +94,6 @@ export default class Register extends Component<Props, State> {
                     </Button>
                 </div>
             </React.Fragment>
-        );
+        )
     }
 }

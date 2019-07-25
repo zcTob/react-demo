@@ -1,43 +1,43 @@
-import React, { Component } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
-import styles from './index.scss';
-import { getCookie } from '../../utils';
-import logo from '../../logo.svg';
-import { Button, Avatar } from 'antd';
+import React, { Component } from 'react'
+import { withRouter, RouteComponentProps } from 'react-router'
+import styles from './index.scss'
+import { getCookie } from '../../utils'
+import logo from '../../logo.svg'
+import { Button, Avatar } from 'antd'
 
-interface Props extends RouteComponentProps {}
+type Props = RouteComponentProps
 
 class Header extends Component<Props> {
     state = {
         name: '登录',
         loginIn: false
-    };
+    }
     constructor(props) {
-        super(props);
-        this.handlerLogin = this.handlerLogin.bind(this);
-        this.handlerRegister = this.handlerRegister.bind(this);
+        super(props)
+        this.handlerLogin = this.handlerLogin.bind(this)
+        this.handlerRegister = this.handlerRegister.bind(this)
     }
     componentDidMount() {
-        const name = getCookie('user');
-        const loginIn = name ? true : false;
+        const name = getCookie('user')
+        const loginIn = name ? true : false
         if (loginIn) {
             this.setState({
                 loginIn,
                 name: name
-            });
+            })
         } else {
             this.setState({
                 loginIn
-            });
+            })
         }
     }
 
     handlerLogin() {
-        this.props.history.push('/login');
+        this.props.history.push('/login')
     }
 
     handlerRegister() {
-        this.props.history.push('/register');
+        this.props.history.push('/register')
     }
 
     renderDefaultList = () => {
@@ -50,8 +50,8 @@ class Header extends Component<Props> {
                     注册
                 </li>
             </>
-        );
-    };
+        )
+    }
 
     renderLoginList = () => {
         return (
@@ -67,8 +67,8 @@ class Header extends Component<Props> {
                     </a>
                 </li>
             </>
-        );
-    };
+        )
+    }
 
     render() {
         return (
@@ -91,8 +91,8 @@ class Header extends Component<Props> {
                     </ul>
                 </div>
             </header>
-        );
+        )
     }
 }
 
-export default withRouter(Header);
+export default withRouter(Header)

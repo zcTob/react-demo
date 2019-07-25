@@ -34,7 +34,11 @@ module.exports = (env) => {
                         {
                             loader: 'eslint-loader',
                             options: {
-                                emitError: true
+                                emitError: true,
+                                emitWarning: true,
+                                quiet: false, //忽略警告
+                                fix: false,
+                                cache: false
                             }
                         }
                     ]

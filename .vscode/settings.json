@@ -15,5 +15,8 @@
     },
     "[typescriptreact]": {
         "editor.formatOnSave": true
-    }
+    },
+    "typescript.suggest.autoImports": false,
+    "javascript.suggest.autoImports": false,
+    "files.autoSave": "onFocusChange"
 }

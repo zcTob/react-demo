@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import styles from './index.scss';
-import CommentInput from './commentInput';
-import { withRouter, RouteComponentProps } from 'react-router';
+import React, { Component } from 'react'
+import styles from './index.scss'
+import CommentInput from './commentInput'
+import { withRouter, RouteComponentProps } from 'react-router'
 
 interface Props extends RouteComponentProps<{ id: string }> {
-    comments: Array<object>;
+    comments: object[]
 }
 
 class Comments extends Component<Props> {
@@ -17,8 +17,8 @@ class Comments extends Component<Props> {
                     id={this.props.match.params.id}
                 />
             </div>
-        );
+        )
     }
 }
 
-export default withRouter(Comments);
+export default withRouter(Comments)
