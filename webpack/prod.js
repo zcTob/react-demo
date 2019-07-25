@@ -1,4 +1,4 @@
-const wbepack = require('webpack')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const common = require('./common.js')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -25,7 +25,7 @@ module.exports = (env) => {
         },
         output: {
             path: path.resolve(__dirname, '../build'),
-            publicPath: '/',
+            publicPath: '/public',
             chunkFilename: 'js/[name][chunkhash].chunk.js',
             filename: 'js/[name][contenthash].js'
         },

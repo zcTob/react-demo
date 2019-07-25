@@ -11,7 +11,7 @@ export default class Info extends Component {
             title: 'title',
             dataIndex: 'title',
             key: 'title',
-            render: (text, record, index) => {
+            render: (text, record) => {
                 return <a href={`/detail/${record.key}`}>{text}</a>
             }
         },
