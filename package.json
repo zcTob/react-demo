@@ -9,7 +9,9 @@
     "scripts": {
         "start": "webpack-dev-server --env.NODE_ENV=dev --color --config ./webpack/dev.js",
         "build": "webpack --env.NODE_ENV=prod --color --config ./webpack/prod.js",
-        "eslint": "eslint --ext .ts,.tsx src/ --fix --color"
+        "eslint:fix": "eslint --ext .js,.jsx,.json,.ts,.tsx src/ --fix --color",
+        "eslint": "eslint --ext .js,.jsx,.json,.ts,.tsx src/ --color",
+        "prettier": "prettier --check src/**/*{.js,.jsx,.ts,.tsx,.json}"
     },
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
