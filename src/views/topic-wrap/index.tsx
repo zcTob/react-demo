@@ -6,13 +6,11 @@ import Header from '../../components/header';
 import Tags from '../../components/tags';
 import { BackTop, message } from 'antd';
 
-interface Props {}
-
 interface State {
-    topicData: [];
+    topicData: any[];
 }
 
-class TopicWrap extends Component<Props, State> {
+class TopicWrap extends Component<{}, State> {
     state = {
         topicData: []
     };
