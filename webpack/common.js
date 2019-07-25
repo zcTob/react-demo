@@ -11,7 +11,7 @@ module.exports = (env) => {
     return {
         target: 'web',
         entry: {
-            index: resolve('../src/index')
+            index: resolve('../src/client')
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.json'],
@@ -46,6 +46,7 @@ module.exports = (env) => {
                 {
                     test: /\.[tj]sx?$/,
                     include: resolve('../src'),
+                    exclude: /node_modules/,
                     use: [
                         { loader: 'babel-loader' },
                         {
