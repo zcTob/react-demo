@@ -159,7 +159,7 @@ export default class TopicEdit extends Component<Props, State> {
                             onChange={this.bodyChange}
                         />
                     </div>
-                    <div className='edit-show'>
+                    <div className='edit-show markdown-body'>
                         <ReactMarkdown source={this.state.markdownValue} />
                     </div>
                 </div>

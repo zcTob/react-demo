@@ -1,20 +1,20 @@
 :local(.topic-detail) {
-  width: 100%;
-  .td-con {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px 0;
-  }
-  .title {
-    text-align: center;
-    padding: 20px;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.7;
+    width: 100%;
+    .td-con {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px 0;
     }
-  }
-  .comments {
-    margin-top: 100px;
-    border-top: 1px solid #eaecef;
-  }
+    .title {
+        text-align: center;
+        padding: 20px;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    .comments {
+        margin-top: 100px;
+        border-top: 1px solid #eaecef;
+    }
 }
