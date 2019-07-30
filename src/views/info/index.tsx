@@ -34,9 +34,6 @@ export default class Info extends Component {
                     <span>
                         {tags.map((tag) => {
                             let color = tag.length > 5 ? 'geekblue' : 'green'
-                            if (tag === 'loser') {
-                                color = 'volcano'
-                            }
                             return (
                                 <Tag color={color} key={tag}>
                                     {tag.toUpperCase()}
@@ -79,7 +76,14 @@ export default class Info extends Component {
     deleteList = (key, index) => {
         axios.delete(`/topic/${key}`).then((res) => {
             const data = this.state.data.concat()
-            data.splice(index, 1)
+            const selectData = data.splice(index, 1)
+            console.log(data)
+            if (selectData[0].tags.indexOf('deleted') !== -1) {
+                return
+            }
+
+            selectData[0].tags.push('deleted')
+            data.push(selectData[0])
             this.setState({
                 data
             })
@@ -91,14 +95,16 @@ export default class Info extends Component {
         let data = []
         const user = getCookie('user')
         axios.get('/topic').then((res) => {
-            console.log(res)
             res.data.forEach((v) => {
+                let tags = []
+                v.deleted ? tags.push('deleted') : null
+                tags.length === 0 ? tags.push('null') : null
                 data.push({
                     key: v._id,
                     title: v.title,
                     author: user,
                     time: parseDate(v.createTime),
-                    tags: ['cool', 'teacher']
+                    tags: tags
                 })
             })
             this.setState({

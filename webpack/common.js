@@ -36,7 +36,7 @@ module.exports = (env) => {
                             options: {
                                 emitError: true,
                                 emitWarning: false,
-                                quiet: devMode ? false : false, //忽略警告
+                                quiet: devMode ? false : true, //忽略警告
                                 fix: false,
                                 cache: false
                             }

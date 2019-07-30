@@ -16,8 +16,13 @@ class TopicWrap extends Component<{}, State> {
     }
     componentDidMount() {
         axios.get('/topic').then((res) => {
+            const topicData = res.data.filter((v) => {
+                if (v.deleted === false) {
+                    return v
+                }
+            })
             this.setState({
-                topicData: res.data
+                topicData
             })
         })
     }
