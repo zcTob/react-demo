@@ -14,7 +14,9 @@
         "server": "nodemon server/server.js",
         "eslint:fix": "eslint --ext .js,.jsx,.json,.ts,.tsx src/ --fix --color",
         "eslint": "eslint --ext .js,.jsx,.json,.ts,.tsx src/ --color",
-        "prettier": "prettier --check src/**/*{.js,.jsx,.ts,.tsx,.json}"
+        "prettier": "prettier --check src/**/*{.js,.jsx,.ts,.tsx,.json}",
+        "deploy": "pm2 deploy ecosystem.json production --env production",
+        "deploy:setup": "pm2 deploy ecosystem.json production setup"
     },
     "dependencies": {
         "@babel/polyfill": "^7.4.4",
