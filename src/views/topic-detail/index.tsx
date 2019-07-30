@@ -6,7 +6,6 @@ import styles from './index.scss'
 import Header from '../../components/header'
 import Commnets from '../../components/comments'
 import { loginIn } from '../../utils'
-import { type } from 'os'
 
 type Props = RouteComponentProps<{ id: string }>
 
@@ -41,7 +40,7 @@ export default class TopicDetail extends Component<Props, State> {
     }
 
     handerEdit() {
-        if (!loginIn) {
+        if (!loginIn()) {
             return
         }
         const params = this.props.match.params

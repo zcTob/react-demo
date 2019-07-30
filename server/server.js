@@ -6,7 +6,8 @@ const ReactDOMServer = require('react-dom/server')
 
 app.use('/static', express.static((path.join(__dirname), './build/static')))
 
-const ServerEntry = require('../dist/server-entry.js').default
+const ServerEntry = require('../dist/server.js').default
+console.log(ServerEntry)
 const template = fs.readFileSync(
     path.join(__dirname, '../build/index.html'),
     'utf8'

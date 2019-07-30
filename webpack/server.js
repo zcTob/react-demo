@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
     .BundleAnalyzerPlugin
 const path = require('path')
@@ -13,7 +14,7 @@ module.exports = (env) => {
         mode: 'production',
         target: 'node',
         entry: {
-            app: path.join(__dirname, '../src/server')
+            server: path.join(__dirname, '../src/server')
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.json'],
@@ -118,12 +119,8 @@ module.exports = (env) => {
                 }
             ]
         },
-        node: {
-            __dirname: false,
-            __filename: false
-        },
         output: {
-            filename: 'server-entry.js',
+            filename: '[name].js',
             path: path.join(__dirname, '../dist'),
             publicPath: '/',
             libraryTarget: 'commonjs2'
