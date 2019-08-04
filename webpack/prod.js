@@ -32,7 +32,8 @@ module.exports = (env) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, '../public/index.html'),
-                filename: path.resolve(__dirname, '../build/index.html')
+                filename: path.resolve(__dirname, '../build/index.html'),
+                favicon: path.resolve(__dirname, '../public/favicon.ico')
             }),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
