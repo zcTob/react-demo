@@ -12,26 +12,23 @@ import './App.scss'
 import ErrorBoundary from './Error'
 import Register from './register'
 import notFound from './notFound'
-class App extends Component {
-    render() {
-        return (
-            <div className='app'>
-                <ErrorBoundary>
-                    <Switch>
-                        <Route path='/' exact component={TopicWrap} />
-                        <Route path='/detail/:id' component={TopicDetail} />
-                        <Route path='/edit' exact component={TopicEdit} />
-                        <Route path='/edit/:id' component={TopicEdit} />
-                        <Route path='/login' component={Login} />
-                        <Route path='/register' component={Register} />
-                        <Route path='/info' component={Info} />
-                        <Route component={notFound} />
-                    </Switch>
-                </ErrorBoundary>
-                <Footer />
-            </div>
-        )
-    }
-}
+
+const App = () => (
+    <div className='app'>
+        <ErrorBoundary>
+            <Switch>
+                <Route path='/' exact component={TopicWrap} />
+                <Route path='/detail/:id' component={TopicDetail} />
+                <Route path='/edit' exact component={TopicEdit} />
+                <Route path='/edit/:id' component={TopicEdit} />
+                <Route path='/login' component={Login} />
+                <Route path='/register' component={Register} />
+                <Route path='/info' component={Info} />
+                <Route component={notFound} />
+            </Switch>
+        </ErrorBoundary>
+        <Footer />
+    </div>
+)
 
 export default App
