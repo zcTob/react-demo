@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TopicList from '../../components/topic'
 import styles from './index.scss'
-import axios from '../../http'
+import { getTopic, postLike } from '@http'
 import Header from '../../components/header'
 import Tags from '../../components/tags'
 import { BackTop, message } from 'antd'
@@ -12,6 +12,27 @@ interface State {
 
 const TopicWrap = () => {
     const [topicData, setTopicData] = useState([])
+    useEffect(() => {
+        getTopic().then((res) => {
+            const topicData = res.data.filter((v) => {
+                if (v.deleted === false) {
+                    return v
+                }
+            })
+            setTopicData(topicData)
+        })
+    }, [])
+
+    function handleLike(id, likeNum, index) {
+        setTimeout(() => {
+            postLike(id, likeNum).then(() => {
+                let copyTopicData = topicData.concat()
+                copyTopicData[index].like = ++copyTopicData[index].like
+                setTopicData(copyTopicData)
+                message.success('点赞成功')
+            })
+        }, 3000)
+    }
 
     return (
         <div className={styles.topicWrap}>
@@ -30,9 +51,9 @@ const TopicWrap = () => {
                                   createTime={data.createTime}
                                   author={data.author}
                                   tag={1}
-                                  like={data.like}
+                                  likeNum={data.like}
                                   comments={data.comments}
-                                  onLike={this.topicLike}
+                                  onLike={handleLike}
                               />
                           ))
                         : null}

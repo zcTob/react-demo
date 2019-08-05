@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
-import axios from '../../http'
+import axios from '@http'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import Header from '../../components/header'

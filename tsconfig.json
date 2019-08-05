@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
+        "baseUrl": "./",
         "charset": "utf8",
         "sourceMap": true,
         "jsx": "preserve",
@@ -8,11 +8,17 @@
         "declaration": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "@views": ["./src/views"],
+            "@utils": ["./src/utils"],
+            "@components": ["./src/components"],
+            "@config": ["./src/config"],
+            "@styles": ["./src/styles"],
+            "@http": ["./src/http"]
+        },
     },
-    "include": [
-        "src/**/*",
-    ],
     "exclude": [
         "node_modules"
     ]

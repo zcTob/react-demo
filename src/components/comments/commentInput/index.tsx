@@ -10,7 +10,7 @@ import {
     Tooltip
 } from 'antd'
 import moment from 'moment'
-import axios from '../../../http'
+import axios from '@http'
 const { TextArea } = Input
 
 const CommentList = ({ comments }) => (

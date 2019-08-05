@@ -12,7 +12,7 @@ interface Props {
     createTime: string
     author: string
     tag: number
-    like: number
+    likeNum: number
     comments: []
     onLike(id: number, like: number, index: number): void
 }
@@ -26,7 +26,7 @@ export default class Topic extends Component<Props> {
             id,
             author,
             comments,
-            like,
+            likeNum,
             onLike
         } = this.props
         const parseTime = parseDate(createTime)
@@ -45,9 +45,9 @@ export default class Topic extends Component<Props> {
                 <div className='operation'>
                     <span
                         className='like'
-                        onClick={() => onLike(id, like, index)}>
+                        onClick={() => onLike(id, likeNum, index)}>
                         <Icon type='like' />
-                        <strong>{like}</strong>
+                        <strong>{likeNum}</strong>
                     </span>
                     <span className='comment'>
                         <Icon type='message' />

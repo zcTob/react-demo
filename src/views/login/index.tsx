@@ -1,7 +1,7 @@
 import React, { Component, RefObject } from 'react'
 import { RouteComponentProps } from 'react-router'
 import styles from './index.scss'
-import axios from '../../http'
+import axios from '@http'
 import Header from '../../components/header'
 
 type Props = RouteComponentProps

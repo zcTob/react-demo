@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from './index.scss'
 import Header from '../../components/header'
 import { Table, Divider, Tag, Popconfirm, message, Icon } from 'antd'
-import axios from '../../http'
+import axios from '@http'
 import { parseDate, getCookie } from '../../utils'
 
 export default class Info extends Component {

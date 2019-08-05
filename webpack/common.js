@@ -16,12 +16,12 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.json'],
             alias: {
-                views: resolve('../src/views'),
-                utils: resolve('../src/utils'),
-                components: resolve('../src/components'),
-                config: resolve('../src/config'),
-                styles: resolve('../src/styles'),
-                http: resolve('../src/http')
+                '@views': resolve('../src/views'),
+                '@utils': resolve('../src/utils'),
+                '@components': resolve('../src/components'),
+                '@config': resolve('../src/config'),
+                '@styles': resolve('../src/styles'),
+                '@http': resolve('../src/http')
             }
         },
         module: {
