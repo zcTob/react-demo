@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router'
 import styles from './index.scss'
 import { getCookie } from '../../utils'
@@ -7,53 +7,48 @@ import { Button, Avatar } from 'antd'
 
 type Props = RouteComponentProps
 
-class Header extends Component<Props> {
-    state = {
-        name: '登录',
-        loginIn: false
-    }
-    constructor(props) {
-        super(props)
-        this.handlerLogin = this.handlerLogin.bind(this)
-        this.handlerRegister = this.handlerRegister.bind(this)
-    }
-    componentDidMount() {
+const Header = (props: Props) => {
+    const [state, setState] = useState({ name: '登录', loginIn: false })
+    useEffect(() => {
         const name = getCookie('user')
         const loginIn = name ? true : false
         if (loginIn) {
-            this.setState({
+            setState({
                 loginIn,
-                name: name
+                name
             })
         } else {
-            this.setState({
-                loginIn
+            setState((prevState) => {
+                return {
+                    ...prevState,
+                    loginIn
+                }
             })
         }
+    }, [])
+
+    function handlerLogin() {
+        props.history.push('/login')
     }
 
-    handlerLogin() {
-        this.props.history.push('/login')
+    function handlerRegister() {
+        props.history.push('/register')
     }
 
-    handlerRegister() {
-        this.props.history.push('/register')
-    }
-
-    renderDefaultList = () => {
+    const renderDefaultList = () => {
         return (
             <>
-                <li className='login cursor' onClick={this.handlerLogin}>
+                <li className='login cursor' onClick={handlerLogin}>
                     登录
                 </li>
-                <li className='register cursor' onClick={this.handlerRegister}>
+                <li className='register cursor' onClick={handlerRegister}>
                     注册
                 </li>
             </>
         )
     }
 
-    renderLoginList = () => {
+    const renderLoginList = () => {
         return (
             <>
                 <li>
@@ -70,29 +65,25 @@ class Header extends Component<Props> {
         )
     }
 
-    render() {
-        return (
-            <header className={styles.header}>
-                <div className='wrap mcontainer'>
-                    <a className='logo' href='/'>
-                        <img className='cursor' src={logo} alt='logo' />
-                    </a>
-                    <ul className='tools'>
-                        <li className='search'>
-                            <input
-                                type='search'
-                                placeholder='搜索'
-                                maxLength={32}
-                            />
-                        </li>
-                        {this.state.loginIn
-                            ? this.renderLoginList()
-                            : this.renderDefaultList()}
-                    </ul>
-                </div>
-            </header>
-        )
-    }
+    return (
+        <header className={styles.header}>
+            <div className='wrap mcontainer'>
+                <a className='logo' href='/'>
+                    <img className='cursor' src={logo} alt='logo' />
+                </a>
+                <ul className='tools'>
+                    <li className='search'>
+                        <input
+                            type='search'
+                            placeholder='搜索'
+                            maxLength={32}
+                        />
+                    </li>
+                    {state.loginIn ? renderLoginList() : renderDefaultList()}
+                </ul>
+            </div>
+        </header>
+    )
 }
 
 export default withRouter(Header)

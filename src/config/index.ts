@@ -1,4 +1,5 @@
-let config
+import { Config } from './types'
+let config: Config
 console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
     config = {

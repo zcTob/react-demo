@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, RefObject, useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
 import axios from '@http'
 import ReactMarkdown from 'react-markdown'
@@ -14,53 +14,47 @@ interface State {
     markdownValue: string
     comments: object[]
 }
-
-export default class TopicDetail extends Component<Props, State> {
-    markdown
-    constructor(props) {
-        super(props)
-        this.markdown = React.createRef()
-        this.state = {
-            title: '',
-            markdownValue: '',
-            comments: []
-        }
-        this.handerEdit = this.handerEdit.bind(this)
+const TopicDetail = (props: Props) => {
+    const initialState: State = {
+        title: '',
+        markdownValue: '',
+        comments: []
     }
-    componentDidMount() {
-        const params = this.props.match.params
+    const [state, setState] = useState(initialState)
+    useEffect(() => {
+        const params = props.match.params
         axios.get(`/topic/${params.id}`).then((res) => {
-            const data = res.data[0]
-            this.setState({
+            const data = res.data.data[0]
+            setState({
                 title: data.title,
                 markdownValue: data.text,
                 comments: data.comments
             })
         })
-    }
+    }, [props.match.params])
 
-    handerEdit() {
+    function handerEdit() {
         if (!loginIn()) {
             return
         }
-        const params = this.props.match.params
-        this.props.history.push(`/edit/${params.id}`)
+        const params = props.match.params
+        props.history.push(`/edit/${params.id}`)
     }
 
-    render() {
-        return (
-            <div className={styles.topicDetail}>
-                <Header />
-                <div className='td-con markdown-body'>
-                    <h1 className='title' onClick={this.handerEdit}>
-                        {this.state.title}
-                    </h1>
-                    <ReactMarkdown source={this.state.markdownValue} />
-                    <div className='comments'>
-                        <Commnets comments={this.state.comments} />
-                    </div>
+    return (
+        <div className={styles.topicDetail}>
+            <Header />
+            <div className='td-con markdown-body'>
+                <h1 className='title' onClick={handerEdit}>
+                    {state.title}
+                </h1>
+                <ReactMarkdown source={state.markdownValue} />
+                <div className='comments'>
+                    <Commnets comments={state.comments} />
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default TopicDetail

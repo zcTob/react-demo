@@ -6,6 +6,7 @@ import axios from '@http'
 import Header from '../../components/header'
 import { message, Button } from 'antd'
 
+import { ResData } from '@http/types'
 type Props = RouteComponentProps<{ id: string }>
 
 interface State {
@@ -40,8 +41,8 @@ export default class Register extends Component<Props, State> {
                 username,
                 password
             })
-            .then((data: any) => {
-                message.success(data.msg)
+            .then((data) => {
+                message.success(data.data.msg)
                 message.success('3s后跳到登录页')
                 setTimeout(() => {
                     this.props.history.push('/login')

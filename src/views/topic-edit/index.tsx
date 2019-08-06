@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, RefObject, ChangeEvent } from 'react'
 import { RouteComponentProps } from 'react-router'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import axios from '@http'
 import { Button, Upload, message, Icon } from 'antd'
+import { UploadChangeParam } from 'antd/lib/upload/interface'
 import config from '../../config'
 let imgUrl = ''
-
-console.log(styles)
 
 const props = {
     accept: 'image/*',
     name: 'file',
     action: `${config.baseUrl}/upload/img`,
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     withCredentials: true,
     showUploadList: false
 }
@@ -26,7 +24,7 @@ interface State {
 type Props = RouteComponentProps<{ id: string }>
 
 export default class TopicEdit extends Component<Props, State> {
-    titleRef
+    titleRef: RefObject<HTMLInputElement>
     constructor(props: Props) {
         super(props)
         this.state = {
@@ -100,13 +98,13 @@ export default class TopicEdit extends Component<Props, State> {
         }
     }
 
-    bodyChange(event) {
+    bodyChange(event: ChangeEvent<HTMLTextAreaElement>) {
         this.setState({
             markdownValue: event.target.value
         })
     }
 
-    onFileChange(info) {
+    onFileChange(info: UploadChangeParam) {
         if (info.file.status !== 'uploading') {
             console.log(info.file, info.fileList)
         }

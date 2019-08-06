@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import {
     Comment,
     Avatar,
@@ -11,18 +11,23 @@ import {
 } from 'antd'
 import moment from 'moment'
 import axios from '@http'
+import { CommentsData } from './type'
+
 const { TextArea } = Input
 
-const CommentList = ({ comments }) => (
-    <List
-        dataSource={comments}
-        header={`${comments.length} ${
-            comments.length > 1 ? 'replies' : 'reply'
-        }`}
-        itemLayout='horizontal'
-        renderItem={({ content: string }) => <Comment content />}
-    />
-)
+const CommentList = ({ comments }) => {
+    console.log(comments)
+    return (
+        <List
+            dataSource={comments}
+            header={`${comments.length} ${
+                comments.length > 1 ? 'replies' : 'reply'
+            }`}
+            itemLayout='horizontal'
+            renderItem={() => <Comment content={comments.content} />}
+        />
+    )
+}
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <div>
@@ -41,30 +46,19 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </div>
 )
 
-export default class CommentInput extends React.PureComponent<
-    {
-        comments: object[]
-        id: string
-    },
-    {
-        comments: object[]
-        submitting: boolean
-        value: string
-        id: string | null
-    }
-> {
-    state = {
+interface CommentInputProps {
+    comments: object[]
+    id: string
+}
+
+const CommentInput = (props: CommentInputProps) => {
+    const [state, setState] = useState({
         comments: [],
         submitting: false,
-        value: '',
-        id: null
-    }
+        value: ''
+    })
 
-    componentWillUpdate() {}
-
-    componentDidMount() {}
-
-    formatComments(data) {
+    function formatComments(data) {
         return data.map((v) => {
             return {
                 avatar:
@@ -86,24 +80,27 @@ export default class CommentInput extends React.PureComponent<
         })
     }
 
-    handleSubmit = () => {
-        if (!this.state.value) {
+    function handleSubmit() {
+        if (!state.value) {
             message.warning('请输入评论内容')
             return
         }
 
-        this.setState({
-            submitting: true
+        setState((prevState) => {
+            return {
+                ...prevState,
+                submitting: true
+            }
         })
 
-        const data: any = {
-            id: this.state.id,
+        const data: CommentsData = {
+            id: props.id,
             time: new Date(),
-            value: this.state.value
+            value: state.value
         }
 
         axios.post('/comments', data).then((res) => {
-            this.setState({
+            setState({
                 submitting: false,
                 value: '',
                 comments: [
@@ -114,51 +111,63 @@ export default class CommentInput extends React.PureComponent<
                         datetime: (
                             <Tooltip
                                 title={moment()
-                                    .subtract(data.time)
+                                    .subtract(data.time as number)
                                     .format('YYYY-MM-DD HH:mm:ss')}>
                                 <span>
                                     {moment()
-                                        .subtract(data.time)
+                                        .subtract(data.time as number)
                                         .fromNow()}
                                 </span>
                             </Tooltip>
                         )
                     },
-                    ...this.state.comments
+                    ...state.comments
                 ]
             })
         })
     }
 
-    handleChange = (e) => {
-        this.setState({
-            value: e.target.value
+    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                value: e.target.value
+            }
         })
     }
 
-    render() {
-        const { comments, submitting, value } = this.state
+    useEffect(() => {
+        setState((prevState) => {
+            return {
+                ...prevState,
+                comments: formatComments(props.comments)
+            }
+        })
+    }, [props.comments])
 
-        return (
-            <div>
-                {comments.length > 0 && <CommentList comments={comments} />}
-                <Comment
-                    avatar={
-                        <Avatar
-                            src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
-                            alt='Han Solo'
-                        />
-                    }
-                    content={
-                        <Editor
-                            onChange={this.handleChange}
-                            onSubmit={this.handleSubmit}
-                            submitting={submitting}
-                            value={value}
-                        />
-                    }
-                />
-            </div>
-        )
-    }
+    return (
+        <div>
+            {state.comments.length > 0 && (
+                <CommentList comments={state.comments} />
+            )}
+            <Comment
+                avatar={
+                    <Avatar
+                        src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+                        alt='Han Solo'
+                    />
+                }
+                content={
+                    <Editor
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                        submitting={state.submitting}
+                        value={state.value}
+                    />
+                }
+            />
+        </div>
+    )
 }
+
+export default CommentInput
