@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react'
+import React, { Component, RefObject, useRef } from 'react'
 import { RouteComponentProps } from 'react-router'
 import styles from './index.scss'
 import axios from '@http'
@@ -6,13 +6,15 @@ import Header from '../../components/header'
 
 type Props = RouteComponentProps
 
-export default class Login extends Component<Props> {
-    username: RefObject<HTMLInputElement> = React.createRef()
-    password: RefObject<HTMLInputElement> = React.createRef()
+class Login1 extends Component<Props> {}
 
-    submit = () => {
-        const username = this.username.current.value
-        const password = this.password.current.value
+function Login(props) {
+    const usernameRef = useRef(null)
+    const passwordRef = useRef(null)
+
+    function submit() {
+        const username = usernameRef.current.value
+        const password = passwordRef.current.value
         if (username.length === 0 || password.length === 0) {
             alert('请输入账号密码')
             return
@@ -23,32 +25,32 @@ export default class Login extends Component<Props> {
                 password
             })
             .then((res) => {
-                this.props.history.push('/')
+                props.history.push('/')
             })
     }
 
-    render() {
-        return (
-            <React.Fragment>
-                <Header />
-                <div className={styles.login}>
-                    <input
-                        className='username'
-                        ref={this.username}
-                        type='text'
-                        placeholder='username'
-                    />
-                    <input
-                        className='password'
-                        ref={this.password}
-                        type='password'
-                        placeholder='password'
-                    />
-                    <button className='submit' onClick={this.submit}>
-                        登录
-                    </button>
-                </div>
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <Header />
+            <div className={styles.login}>
+                <input
+                    className='username'
+                    ref={usernameRef}
+                    type='text'
+                    placeholder='username'
+                />
+                <input
+                    className='password'
+                    ref={passwordRef}
+                    type='password'
+                    placeholder='password'
+                />
+                <button className='submit' onClick={submit}>
+                    登录
+                </button>
+            </div>
+        </React.Fragment>
+    )
 }
+
+export default Login

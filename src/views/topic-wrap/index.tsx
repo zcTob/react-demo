@@ -8,7 +8,7 @@ import { BackTop, message } from 'antd'
 import { OnLike } from '@components/topic/types'
 import { TopicData } from '@http/types'
 
-const TopicWrap = () => {
+function TopicWrap() {
     const [topicData, setTopicData] = useState([])
     useEffect(() => {
         getTopic().then((res) => {
@@ -22,14 +22,12 @@ const TopicWrap = () => {
     }, [])
 
     const handleLike: OnLike = (id, likeNum, index) => {
-        setTimeout(() => {
-            postLike(id, likeNum).then(() => {
-                let copyTopicData = topicData.concat()
-                copyTopicData[index].like = ++copyTopicData[index].like
-                setTopicData(copyTopicData)
-                message.success('点赞成功')
-            })
-        }, 3000)
+        postLike(id, likeNum).then(() => {
+            let copyTopicData = topicData.concat()
+            copyTopicData[index].like = ++copyTopicData[index].like
+            setTopicData(copyTopicData)
+            message.success('点赞成功')
+        })
     }
 
     return (

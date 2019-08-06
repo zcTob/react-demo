@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react'
+import React, { useState, useRef } from 'react'
 import { RouteComponentProps } from 'react-router'
 import styles from './index.scss'
 import axios from '@http'
@@ -13,18 +13,16 @@ interface State {
     loading: boolean
 }
 
-export default class Register extends Component<Props, State> {
-    state = {
-        loading: false
-    }
-    username: RefObject<HTMLInputElement> = React.createRef()
-    password: RefObject<HTMLInputElement> = React.createRef()
-    repassword: RefObject<HTMLInputElement> = React.createRef()
+function Register(props: Props) {
+    const [loading, setLoading] = useState(false)
+    const usernameRef = useRef(null)
+    const passwordRef = useRef(null)
+    const repasswordRef = useRef(null)
 
-    submit = () => {
-        const username = this.username.current.value
-        const password = this.password.current.value
-        const repassword = this.repassword.current.value
+    function submit() {
+        const username = usernameRef.current.value
+        const password = passwordRef.current.value
+        const repassword = repasswordRef.current.value
         if (username.length === 0 || password.length === 0) {
             message.warning('请输入账号密码')
             return
@@ -33,9 +31,7 @@ export default class Register extends Component<Props, State> {
             message.error('两次输入密码不一致')
             return
         }
-        this.setState({
-            loading: true
-        })
+        setLoading(true)
         axios
             .post('/register', {
                 username,
@@ -45,56 +41,54 @@ export default class Register extends Component<Props, State> {
                 message.success(data.data.msg)
                 message.success('3s后跳到登录页')
                 setTimeout(() => {
-                    this.props.history.push('/login')
+                    props.history.push('/login')
                 }, 3000)
             })
             .catch((err) => {
                 if (err.code === 10001) {
-                    this.username.current.value = ''
-                    this.password.current.value = ''
-                    this.repassword.current.value = ''
-                    this.username.current.focus()
+                    username.current.value = ''
+                    password.current.value = ''
+                    repassword.current.value = ''
+                    username.current.focus()
                 }
                 setTimeout(() => {
-                    this.setState({
-                        loading: false
-                    })
+                    setLoading(false)
                 }, 0)
             })
     }
 
-    render() {
-        return (
-            <React.Fragment>
-                <Header />
-                <div className={styles.register}>
-                    <input
-                        className='username'
-                        ref={this.username}
-                        type='text'
-                        placeholder='请输入账号'
-                    />
-                    <input
-                        className='password'
-                        ref={this.password}
-                        type='password'
-                        placeholder='请输入密码'
-                    />
-                    <input
-                        className='password'
-                        ref={this.repassword}
-                        type='password'
-                        placeholder='请在次输入密码'
-                    />
-                    <Button
-                        type='primary'
-                        className='submit'
-                        loading={this.state.loading}
-                        onClick={this.submit}>
-                        注册
-                    </Button>
-                </div>
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <Header />
+            <div className={styles.register}>
+                <input
+                    className='username'
+                    ref={usernameRef}
+                    type='text'
+                    placeholder='请输入账号'
+                />
+                <input
+                    className='password'
+                    ref={passwordRef}
+                    type='password'
+                    placeholder='请输入密码'
+                />
+                <input
+                    className='password'
+                    ref={repasswordRef}
+                    type='password'
+                    placeholder='请在次输入密码'
+                />
+                <Button
+                    type='primary'
+                    className='submit'
+                    loading={loading}
+                    onClick={submit}>
+                    注册
+                </Button>
+            </div>
+        </React.Fragment>
+    )
 }
+
+export default Register

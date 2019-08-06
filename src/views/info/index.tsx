@@ -1,12 +1,33 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import styles from './index.scss'
 import Header from '../../components/header'
 import { Table, Divider, Tag, Popconfirm, message, Icon } from 'antd'
 import axios from '@http'
 import { parseDate, getCookie } from '../../utils'
 
-export default class Info extends Component {
-    columns = [
+const Info = () => {
+    const [state, setState] = useState({
+        data: null
+    })
+
+    const deleteList = (key, index) => {
+        axios.delete(`/topic/${key}`).then((res) => {
+            const data = state.data.concat()
+            const selectData = data.splice(index, 1)
+            if (selectData[0].tags.indexOf('deleted') !== -1) {
+                return
+            }
+
+            selectData[0].tags.push('deleted')
+            data.push(selectData[0])
+            setState({
+                data
+            })
+            message.success('删除成功')
+        })
+    }
+
+    const columns = [
         {
             title: 'title',
             dataIndex: 'title',
@@ -59,7 +80,7 @@ export default class Info extends Component {
                                 style={{ color: 'red' }}
                             />
                         }
-                        onConfirm={() => this.deleteList(record.key, index)}
+                        onConfirm={() => deleteList(record.key, index)}
                         okText='Yes'
                         cancelText='No'>
                         <a href='#'>删除</a>
@@ -69,33 +90,11 @@ export default class Info extends Component {
         }
     ]
 
-    state = {
-        data: null
-    }
-
-    deleteList = (key, index) => {
-        axios.delete(`/topic/${key}`).then((res) => {
-            const data = this.state.data.concat()
-            const selectData = data.splice(index, 1)
-            console.log(data)
-            if (selectData[0].tags.indexOf('deleted') !== -1) {
-                return
-            }
-
-            selectData[0].tags.push('deleted')
-            data.push(selectData[0])
-            this.setState({
-                data
-            })
-            message.success('删除成功')
-        })
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         let data = []
         const user = getCookie('user')
         axios.get('/topic').then((res) => {
-            res.data.forEach((v) => {
+            res.data.data.forEach((v) => {
                 let tags = []
                 v.deleted ? tags.push('deleted') : null
                 tags.length === 0 ? tags.push('null') : null
@@ -107,23 +106,20 @@ export default class Info extends Component {
                     tags: tags
                 })
             })
-            this.setState({
+            setState({
                 data
             })
         })
-    }
+    }, [])
 
-    render() {
-        return (
-            <div className={styles.info}>
-                <Header />
-                <div className='list'>
-                    <Table
-                        columns={this.columns}
-                        dataSource={this.state.data}
-                    />
-                </div>
+    return (
+        <div className={styles.info}>
+            <Header />
+            <div className='list'>
+                <Table columns={columns} dataSource={state.data} />
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default Info
