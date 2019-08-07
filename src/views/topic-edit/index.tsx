@@ -1,11 +1,4 @@
-import React, {
-    Component,
-    RefObject,
-    ChangeEvent,
-    useRef,
-    useState,
-    useEffect
-} from 'react'
+import React, { ChangeEvent, useRef, useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
@@ -15,7 +8,7 @@ import { UploadChangeParam } from 'antd/lib/upload/interface'
 import config from '../../config'
 let imgUrl = ''
 
-const props = {
+const uploadProps = {
     accept: 'image/*',
     name: 'file',
     action: `${config.baseUrl}/upload/img`,
@@ -62,10 +55,8 @@ function TopicEdit(props: Props) {
                     text: state.markdownValue
                 })
                 .then((res) => {
-                    message.success('修改成功，3s后跳到首页')
-                    setTimeout(() => {
-                        props.history.push('/')
-                    }, 3000)
+                    message.success('修改成功，1s后跳到首页')
+                    props.history.push('/')
                 })
                 .catch(() => {
                     setState((prevState) => {
@@ -96,10 +87,11 @@ function TopicEdit(props: Props) {
     }
 
     function bodyChange(event: ChangeEvent<HTMLTextAreaElement>) {
+        const markdownValue = event.target.value
         setState((prevState) => {
             return {
                 ...prevState,
-                markdownValue: event.target.value
+                markdownValue
             }
         })
     }
@@ -123,6 +115,19 @@ function TopicEdit(props: Props) {
         }
     }
 
+    useEffect(() => {
+        const id = props.match.params.id
+        if (id) {
+            axios.get(`/topic/${id}`).then((res) => {
+                setState({
+                    markdownValue: res.data.data[0].text,
+                    loading: false
+                })
+                titleRef.current.value = res.data.data[0].title
+            })
+        }
+    }, [props.match.params.id])
+
     return (
         <div className={styles.topicEdit}>
             <header className='header'>
@@ -134,7 +139,7 @@ function TopicEdit(props: Props) {
                 />
                 <Upload
                     className='upload-img'
-                    {...props}
+                    {...uploadProps}
                     onChange={onFileChange}>
                     <Button>
                         <Icon type='picture' /> 上传图片

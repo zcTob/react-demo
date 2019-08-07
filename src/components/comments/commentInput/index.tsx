@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
     Comment,
     Avatar,
@@ -15,8 +15,9 @@ import { CommentsData } from './type'
 
 const { TextArea } = Input
 
+moment.locale('zh-cn')
+
 const CommentList = ({ comments }) => {
-    console.log(comments)
     return (
         <List
             dataSource={comments}
@@ -24,27 +25,36 @@ const CommentList = ({ comments }) => {
                 comments.length > 1 ? 'replies' : 'reply'
             }`}
             itemLayout='horizontal'
-            renderItem={() => <Comment content={comments.content} />}
+            renderItem={({ content, avatar, datetime }) => (
+                <Comment
+                    author='zy'
+                    content={content}
+                    avatar={avatar}
+                    datetime={datetime}
+                />
+            )}
         />
     )
 }
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
-    <div>
-        <Form.Item>
-            <TextArea rows={4} onChange={onChange} value={value} />
-        </Form.Item>
-        <Form.Item>
-            <Button
-                htmlType='submit'
-                loading={submitting}
-                onClick={onSubmit}
-                type='primary'>
-                添加评论
-            </Button>
-        </Form.Item>
-    </div>
-)
+const Editor = ({ onChange, onSubmit, submitting, value }) => {
+    return (
+        <div>
+            <Form.Item>
+                <TextArea rows={4} onChange={onChange} value={value} />
+            </Form.Item>
+            <Form.Item>
+                <Button
+                    htmlType='submit'
+                    loading={submitting}
+                    onClick={onSubmit}
+                    type='primary'>
+                    添加评论
+                </Button>
+            </Form.Item>
+        </div>
+    )
+}
 
 interface CommentInputProps {
     comments: object[]
@@ -65,15 +75,8 @@ const CommentInput = (props: CommentInputProps) => {
                     'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                 content: <p>{v.value}</p>,
                 datetime: (
-                    <Tooltip
-                        title={moment()
-                            .subtract(v.time)
-                            .format('YYYY-MM-DD HH:mm:ss')}>
-                        <span>
-                            {moment()
-                                .subtract(v.time)
-                                .fromNow()}
-                        </span>
+                    <Tooltip title={moment(v.time).format('llll')}>
+                        <span>{moment(v.time).fromNow()}</span>
                     </Tooltip>
                 )
             }
@@ -127,24 +130,26 @@ const CommentInput = (props: CommentInputProps) => {
         })
     }
 
-    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    function handleChange(e) {
+        const value = e.target.value
         setState((prevState) => {
             return {
                 ...prevState,
-                value: e.target.value
+                value
             }
         })
     }
 
     useEffect(() => {
+        const comments = formatComments(props.comments)
         setState((prevState) => {
             return {
                 ...prevState,
-                comments: formatComments(props.comments)
+                comments
             }
         })
     }, [props.comments])
-
+    console.log('1111', state.comments)
     return (
         <div>
             {state.comments.length > 0 && (
@@ -159,10 +164,10 @@ const CommentInput = (props: CommentInputProps) => {
                 }
                 content={
                     <Editor
-                        onChange={handleChange}
                         onSubmit={handleSubmit}
                         submitting={state.submitting}
                         value={state.value}
+                        onChange={handleChange}
                     />
                 }
             />

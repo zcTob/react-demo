@@ -27,6 +27,52 @@ const Info = () => {
         })
     }
 
+    function showList(key, index) {
+        axios.put(`/topic/${key}`).then((res) => {
+            const data = state.data.concat()
+            const selectData = data.splice(index, 1)
+            const deletedIndex = selectData[0].tags.indexOf('deleted')
+            selectData[0].tags.splice(deletedIndex, 1)
+            data.push(selectData[0])
+            setState({
+                data
+            })
+            message.success('发布成功')
+        })
+    }
+
+    function Tools({ record, index }) {
+        if (record.tags.indexOf('deleted') !== -1) {
+            return (
+                <Popconfirm
+                    title='发布?'
+                    icon={
+                        <Icon
+                            type='question-circle-o'
+                            style={{ color: 'red' }}
+                        />
+                    }
+                    onConfirm={() => showList(record.key, index)}
+                    okText='Yes'
+                    cancelText='No'>
+                    <a href='#'>发布</a>
+                </Popconfirm>
+            )
+        }
+        return (
+            <Popconfirm
+                title='删除?'
+                icon={
+                    <Icon type='question-circle-o' style={{ color: 'red' }} />
+                }
+                onConfirm={() => deleteList(record.key, index)}
+                okText='Yes'
+                cancelText='No'>
+                <a href='#'>删除</a>
+            </Popconfirm>
+        )
+    }
+
     const columns = [
         {
             title: 'title',
@@ -68,25 +114,15 @@ const Info = () => {
         {
             title: 'Action',
             key: 'action',
-            render: (text, record, index) => (
-                <span>
-                    <a href={`/edit/${record.key}`}>编辑</a>
-                    <Divider type='vertical' />
-                    <Popconfirm
-                        title='确定删除吗?'
-                        icon={
-                            <Icon
-                                type='question-circle-o'
-                                style={{ color: 'red' }}
-                            />
-                        }
-                        onConfirm={() => deleteList(record.key, index)}
-                        okText='Yes'
-                        cancelText='No'>
-                        <a href='#'>删除</a>
-                    </Popconfirm>
-                </span>
-            )
+            render: (text, record, index) => {
+                return (
+                    <span>
+                        <a href={`/edit/${record.key}`}>编辑</a>
+                        <Divider type='vertical' />
+                        <Tools record={record} index={index} />
+                    </span>
+                )
+            }
         }
     ]
 
