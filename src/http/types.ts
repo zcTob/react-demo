@@ -2,6 +2,10 @@ export interface BaseData {
     code: number
 }
 
+export interface BaseResponse extends BaseData {
+    data: string
+}
+
 export interface TopicData {
     author: string
     comments: Comments[]
@@ -22,8 +26,4 @@ interface Comments {
 
 export interface TopicDataResponse extends BaseData {
     data: TopicData[]
-}
-
-export interface PostTopicDataResponse extends BaseData {
-    data: string
 }

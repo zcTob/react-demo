@@ -21,6 +21,7 @@
                 "usePrettierrc": true
             }
         ],
+        "semi": 0,
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "@typescript-eslint/restrict-plus-operands": 0,
