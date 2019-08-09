@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react'
 import {
     Comment,
     Avatar,
@@ -11,13 +11,29 @@ import {
 } from 'antd'
 import moment from 'moment'
 import axios from '@http'
-import { CommentsData } from './type'
 
 const { TextArea } = Input
 
 moment.locale('zh-cn')
 
-const CommentList = ({ comments }) => {
+interface CommentInputProps {
+    comments: CommentsData[]
+    id: string
+}
+
+export interface CommentsData {
+    id: string
+    time: Date | number
+    value: string
+}
+
+interface CommentFormatData {
+    avatar: string
+    content: HTMLElement
+    datetime: React.ReactElement<any>
+}
+
+const CommentList = ({ comments }: { comments: CommentFormatData[] }) => {
     return (
         <List
             dataSource={comments}
@@ -37,7 +53,17 @@ const CommentList = ({ comments }) => {
     )
 }
 
-const Editor = ({ onChange, onSubmit, submitting, value }) => {
+const Editor = ({
+    onChange,
+    onSubmit,
+    submitting,
+    value
+}: {
+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    onSubmit: () => void
+    submitting: boolean
+    value: string
+}) => {
     return (
         <div>
             <Form.Item>
@@ -56,11 +82,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => {
     )
 }
 
-interface CommentInputProps {
-    comments: object[]
-    id: string
-}
-
 const CommentInput = (props: CommentInputProps) => {
     const [state, setState] = useState({
         comments: [],
@@ -68,7 +89,7 @@ const CommentInput = (props: CommentInputProps) => {
         value: ''
     })
 
-    function formatComments(data) {
+    function formatComments(data: CommentInputProps['comments']) {
         return data.map((v) => {
             return {
                 avatar:
@@ -130,7 +151,7 @@ const CommentInput = (props: CommentInputProps) => {
         })
     }
 
-    function handleChange(e) {
+    function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
         const value = e.target.value
         setState((prevState) => {
             return {

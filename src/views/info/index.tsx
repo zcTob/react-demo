@@ -1,16 +1,24 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.scss'
 import Header from '../../components/header'
 import { Table, Divider, Tag, Popconfirm, message, Icon } from 'antd'
-import axios from '@http'
+import axios, { getTopic } from '@http'
 import { parseDate, getCookie } from '../../utils'
+
+interface TopicListData {
+    key: string
+    title: string
+    author: string
+    time: string
+    tags: string[]
+}
 
 const Info = () => {
     const [state, setState] = useState({
         data: null
     })
 
-    const deleteList = (key, index) => {
+    const deleteList = (key: string, index: number) => {
         axios.delete(`/topic/${key}`).then((res) => {
             const data = state.data.concat()
             const selectData = data.splice(index, 1)
@@ -27,7 +35,7 @@ const Info = () => {
         })
     }
 
-    function showList(key, index) {
+    function showList(key: string, index: number) {
         axios.put(`/topic/${key}`).then((res) => {
             const data = state.data.concat()
             const selectData = data.splice(index, 1)
@@ -41,7 +49,13 @@ const Info = () => {
         })
     }
 
-    function Tools({ record, index }) {
+    function Tools({
+        record,
+        index
+    }: {
+        record: TopicListData
+        index: number
+    }) {
         if (record.tags.indexOf('deleted') !== -1) {
             return (
                 <Popconfirm
@@ -78,7 +92,7 @@ const Info = () => {
             title: 'title',
             dataIndex: 'title',
             key: 'title',
-            render: (text, record) => {
+            render: (text: string, record: TopicListData) => {
                 return <a href={`/detail/${record.key}`}>{text}</a>
             }
         },
@@ -96,7 +110,7 @@ const Info = () => {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
-            render: (tags) => {
+            render: (tags: string[]) => {
                 return (
                     <span>
                         {tags.map((tag) => {
@@ -114,7 +128,11 @@ const Info = () => {
         {
             title: 'Action',
             key: 'action',
-            render: (text, record, index) => {
+            render: (
+                text: TopicListData,
+                record: TopicListData,
+                index: number
+            ) => {
                 return (
                     <span>
                         <a href={`/edit/${record.key}`}>编辑</a>
@@ -127,9 +145,9 @@ const Info = () => {
     ]
 
     useEffect(() => {
-        let data = []
+        let data: TopicListData[] = []
         const user = getCookie('user')
-        axios.get('/topic').then((res) => {
+        getTopic().then((res) => {
             res.data.data.forEach((v) => {
                 let tags = []
                 v.deleted ? tags.push('deleted') : null

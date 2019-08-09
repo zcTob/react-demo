@@ -1,4 +1,4 @@
-export const getCookie = (cname) => {
+export const getCookie = (cname: string) => {
     var name = cname + '='
     var ca = document.cookie.split(';')
     for (var i = 0; i < ca.length; i++) {
@@ -14,7 +14,7 @@ export const loginIn = () => {
     return getCookie('user') ? true : false
 }
 
-export const parseDate = (time) => {
+export const parseDate = (time: string) => {
     const date = new Date(time)
     const year = date.getFullYear()
     const month = date.getMonth()

@@ -1,7 +1,5 @@
-export interface ResData {
+export interface BaseData {
     code: number
-    msg?: string
-    data?: Record<string, any>
 }
 
 export interface TopicData {
@@ -20,4 +18,12 @@ interface Comments {
     id: string
     time: string
     value: string
+}
+
+export interface TopicDataResponse extends BaseData {
+    data: TopicData[]
+}
+
+export interface PostTopicDataResponse extends BaseData {
+    data: string
 }

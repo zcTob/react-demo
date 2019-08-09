@@ -6,9 +6,7 @@ import Header from '../../components/header'
 
 type Props = RouteComponentProps
 
-class Login1 extends Component<Props> {}
-
-function Login(props) {
+function Login(props: Props) {
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
 

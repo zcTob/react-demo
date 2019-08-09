@@ -1,6 +1,6 @@
 import React, { Component, RefObject, useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
-import axios from '@http'
+import { getTopicDetail } from '@http'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import Header from '../../components/header'
@@ -12,8 +12,15 @@ type Props = RouteComponentProps<{ id: string }>
 interface State {
     title: string
     markdownValue: string
-    comments: object[]
+    comments: CommentsData[]
 }
+
+export interface CommentsData {
+    id: string
+    time: Date | number
+    value: string
+}
+
 const TopicDetail = (props: Props) => {
     const initialState: State = {
         title: '',
@@ -23,7 +30,7 @@ const TopicDetail = (props: Props) => {
     const [state, setState] = useState(initialState)
     useEffect(() => {
         const params = props.match.params
-        axios.get(`/topic/${params.id}`).then((res) => {
+        getTopicDetail(params.id).then((res) => {
             const data = res.data.data[0]
             setState({
                 title: data.title,

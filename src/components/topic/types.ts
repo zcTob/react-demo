@@ -1,11 +1,11 @@
 export interface OnLike {
-    (id: number, like: number, index: number): void
+    (id: string, like: number, index: number): void
 }
 
 export interface TopicProps {
     index: number
     key: number
-    id: number
+    id: string
     title: string
     createTime: string
     author: string

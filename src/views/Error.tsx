@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ErrorInfo } from 'react'
 
 class ErrorBoundary extends React.Component {
     state = { hasError: false }
 
-    componentDidCatch(error, info) {
+    componentDidCatch(error: Error, info: ErrorInfo) {
         // Display fallback UI
         this.setState({ hasError: true })
         // You can also log the error to an error reporting service

@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-import CommentInput from './commentInput'
+import CommentInput, { CommentsData } from './commentInput'
 import { withRouter, RouteComponentProps } from 'react-router'
 
 interface Props extends RouteComponentProps<{ id: string }> {
-    comments: object[]
+    comments: CommentsData[]
 }
 
 const Comments = (props: Props) => {
-    console.log(props.comments)
     return (
         <div className={styles.comments}>
             <h3 className='title'>评论</h3>

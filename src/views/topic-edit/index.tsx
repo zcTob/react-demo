@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef, useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
-import axios from '@http'
+import axios, { postTopic, putTopic, getTopicDetail } from '@http'
 import { Button, Upload, message, Icon } from 'antd'
 import { UploadChangeParam } from 'antd/lib/upload/interface'
 import config from '../../config'
@@ -48,12 +48,7 @@ function TopicEdit(props: Props) {
         })
         const params = props.match.params
         if (params.id) {
-            axios
-                .put(`/topic`, {
-                    id: params.id,
-                    title: titleRef.current.value,
-                    text: state.markdownValue
-                })
+            putTopic(params.id, titleRef.current.value, state.markdownValue)
                 .then((res) => {
                     message.success('修改成功，1s后跳到首页')
                     props.history.push('/')
@@ -67,11 +62,7 @@ function TopicEdit(props: Props) {
                     })
                 })
         } else {
-            axios
-                .post('/topic', {
-                    title: titleRef.current.value,
-                    text: state.markdownValue
-                })
+            postTopic(titleRef.current.value, state.markdownValue)
                 .then((res) => {
                     props.history.push('/')
                 })
@@ -118,7 +109,7 @@ function TopicEdit(props: Props) {
     useEffect(() => {
         const id = props.match.params.id
         if (id) {
-            axios.get(`/topic/${id}`).then((res) => {
+            getTopicDetail(id).then((res) => {
                 setState({
                     markdownValue: res.data.data[0].text,
                     loading: false

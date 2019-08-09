@@ -6,15 +6,10 @@ import axios from '@http'
 import Header from '../../components/header'
 import { message, Button } from 'antd'
 
-import { ResData } from '@http/types'
 type Props = RouteComponentProps<{ id: string }>
 
-interface State {
-    loading: boolean
-}
-
 function Register(props: Props) {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState<boolean>(false)
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
     const repasswordRef = useRef(null)

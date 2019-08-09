@@ -6,13 +6,12 @@ import Header from '@components/header'
 import Tags from '@components/tags'
 import { BackTop, message } from 'antd'
 import { OnLike } from '@components/topic/types'
-import { TopicData } from '@http/types'
 
 function TopicWrap() {
     const [topicData, setTopicData] = useState([])
     useEffect(() => {
         getTopic().then((res) => {
-            const topicData = res.data.data.filter((v: TopicData) => {
+            const topicData = res.data.data.filter((v) => {
                 if (v.deleted === false) {
                     return v
                 }
