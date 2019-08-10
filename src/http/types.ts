@@ -18,9 +18,9 @@ export interface TopicData {
     _id: string
 }
 
-interface Comments {
+export interface Comments {
     id: string
-    time: string
+    time: string | Date
     value: string
 }
 

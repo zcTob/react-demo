@@ -10,21 +10,15 @@ import {
     Tooltip
 } from 'antd'
 import moment from 'moment'
-import axios from '@http'
+import axios, { Comments, postComments } from '@http'
 
 const { TextArea } = Input
 
 moment.locale('zh-cn')
 
 interface CommentInputProps {
-    comments: CommentsData[]
+    comments: Comments[]
     id: string
-}
-
-export interface CommentsData {
-    id: string
-    time: Date | number
-    value: string
 }
 
 interface CommentFormatData {
@@ -116,14 +110,12 @@ const CommentInput = (props: CommentInputProps) => {
                 submitting: true
             }
         })
-
-        const data: CommentsData = {
+        const data: Comments = {
             id: props.id,
             time: new Date(),
             value: state.value
         }
-
-        axios.post('/comments', data).then((res) => {
+        postComments(data).then((res) => {
             setState({
                 submitting: false,
                 value: '',
@@ -135,11 +127,11 @@ const CommentInput = (props: CommentInputProps) => {
                         datetime: (
                             <Tooltip
                                 title={moment()
-                                    .subtract(data.time as number)
+                                    .subtract(data.time as string)
                                     .format('YYYY-MM-DD HH:mm:ss')}>
                                 <span>
                                     {moment()
-                                        .subtract(data.time as number)
+                                        .subtract(data.time as string)
                                         .fromNow()}
                                 </span>
                             </Tooltip>

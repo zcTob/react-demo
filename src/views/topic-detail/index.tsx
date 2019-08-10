@@ -1,6 +1,6 @@
 import React, { Component, RefObject, useState, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { getTopicDetail } from '@http'
+import { getTopicDetail, Comments } from '@http'
 import ReactMarkdown from 'react-markdown'
 import styles from './index.scss'
 import Header from '../../components/header'
@@ -12,13 +12,7 @@ type Props = RouteComponentProps<{ id: string }>
 interface State {
     title: string
     markdownValue: string
-    comments: CommentsData[]
-}
-
-export interface CommentsData {
-    id: string
-    time: Date | number
-    value: string
+    comments: Comments[]
 }
 
 const TopicDetail = (props: Props) => {

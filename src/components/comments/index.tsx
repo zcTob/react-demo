@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-import CommentInput, { CommentsData } from './commentInput'
+import CommentInput from './commentInput'
+import { Comments } from '@http'
 import { withRouter, RouteComponentProps } from 'react-router'
 
 interface Props extends RouteComponentProps<{ id: string }> {
-    comments: CommentsData[]
+    comments: Comments[]
 }
 
 const Comments = (props: Props) => {

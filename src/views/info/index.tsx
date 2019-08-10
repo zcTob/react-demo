@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.scss'
 import Header from '../../components/header'
 import { Table, Divider, Tag, Popconfirm, message, Icon } from 'antd'
-import axios, { getTopic } from '@http'
+import axios, { getTopic, deleteTopic, showTopic } from '@http'
 import { parseDate, getCookie } from '../../utils'
 
 interface TopicListData {
@@ -19,7 +19,7 @@ const Info = () => {
     })
 
     const deleteList = (key: string, index: number) => {
-        axios.delete(`/topic/${key}`).then((res) => {
+        deleteTopic(key).then((res) => {
             const data = state.data.concat()
             const selectData = data.splice(index, 1)
             if (selectData[0].tags.indexOf('deleted') !== -1) {
@@ -36,7 +36,7 @@ const Info = () => {
     }
 
     function showList(key: string, index: number) {
-        axios.put(`/topic/${key}`).then((res) => {
+        showTopic(key).then((res) => {
             const data = state.data.concat()
             const selectData = data.splice(index, 1)
             const deletedIndex = selectData[0].tags.indexOf('deleted')
@@ -150,8 +150,8 @@ const Info = () => {
         getTopic().then((res) => {
             res.data.data.forEach((v) => {
                 let tags = []
-                v.deleted ? tags.push('deleted') : null
                 tags.length === 0 ? tags.push('null') : null
+                v.deleted ? tags.push('deleted') : null
                 data.push({
                     key: v._id,
                     title: v.title,
