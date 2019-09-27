@@ -29,7 +29,7 @@ instance.interceptors.response.use(
         // Do something with response data
         console.log('拦截器', response)
         if (response.data.code !== 10000) {
-            message.error(response.data.msg)
+            message.error(response.data.data)
             return Promise.reject(response)
         }
         return Promise.resolve(response)

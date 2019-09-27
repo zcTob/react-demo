@@ -33,7 +33,7 @@ function Register(props: Props) {
                 password
             })
             .then((data) => {
-                message.success(data.data.msg)
+                message.success(data.data.data)
                 message.success('3s后跳到登录页')
                 setTimeout(() => {
                     props.history.push('/login')
