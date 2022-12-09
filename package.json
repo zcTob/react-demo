@@ -24,7 +24,7 @@
     "simplemde": "^1.11.2",
     "source-map-explorer": "^1.8.0",
     "yarn": "^1.16.0",
-    "express": "^4.16.4"
+    "express": "^4.17.3"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
